@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+	<FlakeWombat.AmmoSubTypeDef Name="FW_HP">
+		<defName>HollowPoint</defName>
+		<label>hollow point rounds</label>
+
+		<level>Industrial</level>
+		<type>Pistol, Rifle</type>
+
+		<damageMult>1.35</damageMult>
+		<armorPenMult>0</armorPenMult>
+	</FlakeWombat.AmmoSubTypeDef>
+	<FlakeWombat.AmmoSubTypeDef ParentName="FW_HP">
+		<defName>HollowPointS</defName>
+		<label>unstable rounds</label>
+
+		<level>Spacer</level>
+
+		<damageMult>1.75</damageMult>
+	</FlakeWombat.AmmoSubTypeDef>
+
+	<ThingDef ParentName="FW_Ammobase">
+		<defName>FW_RoundIndustrialPistolHollowPoint</defName>
+		<label>hollow point pistol round</label>
+		<description>A simple, hollow point, low pressure round. Does less damage to armored targets, but much more to unarmored ones.</description>
+		<graphicData>
+			<texPath>Ammo/Pistol_Industrial</texPath>
+			<graphicClass>Graphic_StackCount</graphicClass>
+			<drawSize>0.90</drawSize>
+			<color>(192, 192, 0)</color>
+		</graphicData>
+		<stackLimit>500</stackLimit>
+		<costList>
+			<Steel>15</Steel>
+			<Chemfuel>15</Chemfuel>
+		</costList>
+		<recipeMaker>
+			<workAmount>1000</workAmount>
+			<productCount>100</productCount>
+			<bulkRecipeCount>5</bulkRecipeCount>
+		</recipeMaker>
+	</ThingDef>
+	<ThingDef ParentName="FW_Ammobase">
+		<defName>FW_RoundIndustrialRifleHollowPoint</defName>
+		<label>hollow point rifle round</label>
+		<description>A simple, hollow point, high pressure round. Does less damage to armored targets, but much more to unarmored ones.</description>
+		<graphicData>
+			<texPath>Ammo/Rifle_Industrial</texPath>
+			<graphicClass>Graphic_StackCount</graphicClass>
+			<drawSize>0.90</drawSize>
+			<color>(192, 192, 0)</color>
+		</graphicData>
+		<stackLimit>250</stackLimit>
+		<costList>
+			<Steel>15</Steel>
+			<Chemfuel>15</Chemfuel>
+		</costList>
+		<recipeMaker>
+			<workAmount>1000</workAmount>
+			<productCount>50</productCount>
+			<bulkRecipeCount>5</bulkRecipeCount>
+		</recipeMaker>
+	</ThingDef>
+	<ThingDef ParentName="FW_AmmobaseSpacer">
+		<defName>FW_RoundSpacerPistolHollowPointS</defName>
+		<label>unstable charge pistol round</label>
+		<description>A high tech, unstable plasma jacket, low pressure round. Does less damage to armored targets, but much more to unarmored ones.</description>
+		<graphicData>
+			<texPath>Ammo/Pistol_Spacer</texPath>
+			<graphicClass>Graphic_StackCount</graphicClass>
+			<drawSize>0.90</drawSize>
+			<color>(192, 192, 32)</color>
+		</graphicData>
+		<stackLimit>500</stackLimit>
+		<costList>
+			<Plasteel>5</Plasteel>
+			<Steel>25</Steel>
+			<Chemfuel>25</Chemfuel>
+			<ComponentIndustrial>1</ComponentIndustrial>
+		</costList>
+		<recipeMaker>
+			<workAmount>1000</workAmount>
+			<productCount>250</productCount>
+			<bulkRecipeCount>2</bulkRecipeCount>
+		</recipeMaker>
+	</ThingDef>
+	<ThingDef ParentName="FW_AmmobaseSpacer">
+		<defName>FW_RoundSpacerRifleHollowPointS</defName>
+		<label>unstable charge rifle round</label>
+		<description>A high tech, plasma jacket, high pressure round. Does less damage to armored targets, but much more to unarmored ones.</description>
+		<graphicData>
+			<texPath>Ammo/Rifle_Spacer</texPath>
+			<graphicClass>Graphic_StackCount</graphicClass>
+			<drawSize>0.90</drawSize>
+			<color>(192, 192, 32)</color>
+		</graphicData>
+		<stackLimit>250</stackLimit>
+		<costList>
+			<Plasteel>5</Plasteel>
+			<Steel>25</Steel>
+			<Chemfuel>25</Chemfuel>
+			<ComponentIndustrial>1</ComponentIndustrial>
+		</costList>
+		<recipeMaker>
+			<workAmount>1000</workAmount>
+			<productCount>125</productCount>
+			<bulkRecipeCount>2</bulkRecipeCount>
+		</recipeMaker>
+	</ThingDef>
+</Defs>

@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+	<FlakeWombat.AmmoSubTypeDef Name="FW_AP">
+		<defName>ArmorPiercing</defName>
+		<label>armor piercing rounds</label>
+
+		<level>Industrial</level>
+		<type>Pistol, Rifle</type>
+
+		<damageMult>0.75</damageMult>
+		<armorPenMult>1.5</armorPenMult>
+	</FlakeWombat.AmmoSubTypeDef>
+	<FlakeWombat.AmmoSubTypeDef ParentName="FW_AP">
+		<defName>ArmorPiercingS</defName>
+		<label>shaped rounds</label>
+
+		<level>Spacer</level>
+	</FlakeWombat.AmmoSubTypeDef>
+
+	<ThingDef ParentName="FW_Ammobase">
+		<defName>FW_RoundIndustrialPistolArmorPiercing</defName>
+		<label>armor piercing pistol round</label>
+		<description>A simple, armor piercing, low pressure round. Does less damage, but pierces armor much better.</description>
+		<graphicData>
+			<texPath>Ammo/Pistol_Industrial</texPath>
+			<graphicClass>Graphic_StackCount</graphicClass>
+			<drawSize>0.90</drawSize>
+			<color>(64,64,64)</color>
+		</graphicData>
+		<stackLimit>500</stackLimit>
+		<costList>
+			<Plasteel>3</Plasteel>
+			<Steel>10</Steel>
+			<Chemfuel>15</Chemfuel>
+		</costList>
+		<recipeMaker>
+			<workAmount>1000</workAmount>
+			<productCount>100</productCount>
+			<bulkRecipeCount>5</bulkRecipeCount>
+		</recipeMaker>
+	</ThingDef>
+	<ThingDef ParentName="FW_Ammobase">
+		<defName>FW_RoundIndustrialRifleArmorPiercing</defName>
+		<label>armor piercing rifle round</label>
+		<description>A simple, armor piercing, high pressure round. Does less damage, but pierces armor much better.</description>
+		<graphicData>
+			<texPath>Ammo/Rifle_Industrial</texPath>
+			<graphicClass>Graphic_StackCount</graphicClass>
+			<drawSize>0.90</drawSize>
+			<color>(64,64,64)</color>
+		</graphicData>
+		<stackLimit>250</stackLimit>
+		<costList>
+			<Plasteel>3</Plasteel>
+			<Steel>10</Steel>
+			<Chemfuel>15</Chemfuel>
+		</costList>
+		<recipeMaker>
+			<workAmount>1000</workAmount>
+			<productCount>50</productCount>
+			<bulkRecipeCount>5</bulkRecipeCount>
+		</recipeMaker>
+	</ThingDef>
+	<ThingDef ParentName="FW_AmmobaseSpacer">
+		<defName>FW_RoundSpacerPistolArmorPiercingS</defName>
+		<label>shaped charge pistol round</label>
+		<description>A high tech, shaped plasma jacket, low pressure round. Does less damage, but pierces armor much better.</description>
+		<graphicData>
+			<texPath>Ammo/Pistol_Spacer</texPath>
+			<graphicClass>Graphic_StackCount</graphicClass>
+			<drawSize>0.90</drawSize>
+			<color>(32, 64, 64)</color>
+		</graphicData>
+		<stackLimit>500</stackLimit>
+		<costList>
+			<Plasteel>8</Plasteel>
+			<Steel>20</Steel>
+			<Chemfuel>25</Chemfuel>
+			<ComponentIndustrial>1</ComponentIndustrial>
+		</costList>
+		<recipeMaker>
+			<workAmount>1000</workAmount>
+			<productCount>250</productCount>
+			<bulkRecipeCount>2</bulkRecipeCount>
+		</recipeMaker>
+	</ThingDef>
+	<ThingDef ParentName="FW_AmmobaseSpacer">
+		<defName>FW_RoundSpacerRifleArmorPiercingS</defName>
+		<label>shaped charge rifle round</label>
+		<description>A high tech, shaped plasma jacket, high pressure round. Does less damage, but pierces armor much better.</description>
+		<graphicData>
+			<texPath>Ammo/Rifle_Spacer</texPath>
+			<graphicClass>Graphic_StackCount</graphicClass>
+			<drawSize>0.90</drawSize>
+			<color>(32, 64, 64)</color>
+		</graphicData>
+		<stackLimit>250</stackLimit>
+		<costList>
+			<Plasteel>8</Plasteel>
+			<Steel>20</Steel>
+			<Chemfuel>25</Chemfuel>
+			<ComponentIndustrial>1</ComponentIndustrial>
+		</costList>
+		<recipeMaker>
+			<workAmount>1000</workAmount>
+			<productCount>125</productCount>
+			<bulkRecipeCount>2</bulkRecipeCount>
+		</recipeMaker>
+	</ThingDef>
+</Defs>

@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+	<ThingDef ParentName="FW_AmmobaseNeolithic">
+		<defName>FW_RoundNeolithicPistol</defName>
+		<label>arrowhead</label>
+		<description>A round arrowhead made from simple materials. Can be attached to any stick to make an arrow, or shot as-is from low-tech firearms.</description>
+		<graphicData>
+			<texPath>Ammo/Pistol_Neolithic</texPath>
+			<graphicClass>Graphic_StackCount</graphicClass>
+			<drawSize>0.90</drawSize>
+			<color>(186, 140, 99)</color>
+		</graphicData>
+		<stackLimit>500</stackLimit>
+		<stuffCategories>
+			<li>Metallic</li>
+			<li>Woody</li>
+			<li>Stony</li>
+		</stuffCategories>
+		<costStuffCount>10</costStuffCount>
+		<defaultStuff>Steel</defaultStuff>
+		<recipeMaker>
+			<productCount>25</productCount>
+			<bulkRecipeCount>4</bulkRecipeCount>
+		</recipeMaker>
+	</ThingDef>
+	<ThingDef ParentName="FW_AmmobaseNeolithic">
+		<defName>FW_RoundNeolithicRifle</defName>
+		<label>javelin head</label>
+		<description>A round javelin head made from simple materials. Can be attached to any stick to make a javelin, shot as-is from low-tech firearms, or even used as a throwing knife.</description>
+		<graphicData>
+			<texPath>Ammo/Rifle_Neolithic</texPath>
+			<graphicClass>Graphic_StackCount</graphicClass>
+			<drawSize>0.90</drawSize>
+			<color>(186, 140, 99)</color>
+		</graphicData>
+		<stackLimit>250</stackLimit>
+		<stuffCategories>
+			<li>Metallic</li>
+			<li>Woody</li>
+			<li>Stony</li>
+		</stuffCategories>
+		<costStuffCount>10</costStuffCount>
+		<defaultStuff>Steel</defaultStuff>
+		<recipeMaker>
+			<productCount>10</productCount>
+			<bulkRecipeCount>5</bulkRecipeCount>
+		</recipeMaker>
+	</ThingDef>
+	<ThingDef ParentName="FW_AmmobaseNeolithic">
+		<defName>FW_RoundNeolithicExplosive</defName>
+		<label>explosive carcass</label>
+		<description>A simple, large-caliber spherical bomb containing a simple explosive.</description>
+		<graphicData>
+			<texPath>Ammo/Explosive_Neolithic</texPath>
+			<graphicClass>Graphic_StackCount</graphicClass>
+			<drawSize>0.90</drawSize>
+			<color>(186, 140, 99)</color>
+		</graphicData>
+		<statBases>
+			<Mass>0.01</Mass>
+		</statBases>
+		<stackLimit>75</stackLimit>
+		<stuffCategories>
+			<li>Metallic</li>
+			<li>Stony</li>
+		</stuffCategories>
+		<costStuffCount>2</costStuffCount>
+		<defaultStuff>Steel</defaultStuff>
+		<costList>
+			<Chemfuel>3</Chemfuel>
+		</costList>
+		<recipeMaker>
+			<productCount>1</productCount>
+			<bulkRecipeCount>5</bulkRecipeCount>
+		</recipeMaker>
+	</ThingDef>
+</Defs>

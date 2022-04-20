@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+	<FlakeWombat.AmmoSubTypeDef Name="FW_S">
+		<defName>Slug</defName>
+		<label>slug shells</label>
+
+		<level>Industrial</level>
+		<type>Shotgun</type>
+		<projectileOverride>FW_Bullet_Shotgun_Slug</projectileOverride>
+	</FlakeWombat.AmmoSubTypeDef>
+	<FlakeWombat.AmmoSubTypeDef ParentName="FW_S">
+		<defName>SlugS</defName>
+		<label>plasma slug shells</label>
+
+		<level>Spacer</level>
+		<projectileOverride>FW_Bullet_Shotgun_Slug_Plasma</projectileOverride>
+	</FlakeWombat.AmmoSubTypeDef>
+
+	<ThingDef ParentName="FW_Ammobase">
+		<defName>FW_RoundIndustrialShotgunSlug</defName>
+		<label>slug shell</label>
+		<description>A simple shotgun shell containing a heavy slug.</description>
+		<graphicData>
+			<texPath>Ammo/Shotgun_Industrial</texPath>
+			<graphicClass>Graphic_StackCount</graphicClass>
+			<drawSize>0.90</drawSize>
+			<color>(64,64,64)</color>
+		</graphicData>
+		<statBases>
+			<Mass>0.006</Mass>
+		</statBases>
+		<stackLimit>150</stackLimit>
+		<stuffCategories>
+			<li>Woody</li>
+		</stuffCategories>
+		<costStuffCount>10</costStuffCount>
+		<defaultStuff>WoodLog</defaultStuff>
+		<costList>
+			<Steel>10</Steel>
+			<Chemfuel>10</Chemfuel>
+		</costList>
+		<recipeMaker>
+			<workAmount>1000</workAmount>
+			<productCount>50</productCount>
+			<bulkRecipeCount>3</bulkRecipeCount>
+		</recipeMaker>
+	</ThingDef>
+	<ThingDef ParentName="FW_AmmobaseSpacer">
+		<defName>FW_RoundSpacerShotgunSlugS</defName>
+		<label>charge slug shell</label>
+		<description>A high tech shotgun shell containing a heavy plasma slug.</description>
+		<graphicData>
+			<texPath>Ammo/Shotgun_Spacer</texPath>
+			<graphicClass>Graphic_StackCount</graphicClass>
+			<drawSize>0.90</drawSize>
+			<color>(32, 64, 64)</color>
+		</graphicData>
+		<statBases>
+			<Mass>0.006</Mass>
+		</statBases>
+		<stackLimit>150</stackLimit>
+		<costList>
+			<Plasteel>5</Plasteel>
+			<Steel>25</Steel>
+			<Chemfuel>25</Chemfuel>
+			<ComponentIndustrial>1</ComponentIndustrial>
+		</costList>
+		<recipeMaker>
+			<workAmount>1000</workAmount>
+			<productCount>150</productCount>
+		</recipeMaker>
+	</ThingDef>
+	<ThingDef ParentName="BaseBullet">
+		<defName>FW_Bullet_Shotgun_Slug</defName>
+		<label>shotgun slug</label>
+		<graphicData>
+			<texPath>Things/Projectile/Bullet_Big</texPath>
+			<graphicClass>Graphic_Single</graphicClass>
+		</graphicData>
+		<projectile>
+			<damageDef>Bullet</damageDef>
+			<damageAmountBase>1</damageAmountBase>
+			<stoppingPower>3</stoppingPower>
+			<speed>250</speed>
+		</projectile>
+	</ThingDef>
+	<ThingDef ParentName="BaseBullet">
+		<defName>FW_Bullet_Shotgun_Slug_Plasma</defName>
+		<label>shotgun plasma slug</label>
+		<graphicData>
+			<texPath>Things/Projectile/ChargeLanceShot</texPath>
+			<graphicClass>Graphic_Single</graphicClass>
+		</graphicData>
+		<projectile>
+			<damageDef>Bullet</damageDef>
+			<damageAmountBase>1</damageAmountBase>
+			<armorPenetrationBase>0.42</armorPenetrationBase>
+			<stoppingPower>3</stoppingPower>
+			<speed>250</speed>
+		</projectile>
+	</ThingDef>
+</Defs>

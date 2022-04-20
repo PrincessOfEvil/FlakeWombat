@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<LanguageData>
+	<FW_ReloadShort>reload</FW_ReloadShort>
+	<FW_AmmoPerMinute>ammo per minute</FW_AmmoPerMinute>
+	<FW_AmmoPerMinute.desc>Ammunition used per minute of shooting. This is affected by the weapon's rate of fire, burst capabilities, or explosive or energy damage.</FW_AmmoPerMinute.desc>
+</LanguageData>

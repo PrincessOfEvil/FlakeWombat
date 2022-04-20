@@ -1,0 +1,203 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+	<FlakeWombat.AmmoSubTypeDef Name="FW_API">
+		<defName>API</defName>
+		<label>armor piercing incendiary rounds</label>
+
+		<level>Industrial</level>
+		<type>Rifle</type>
+		<projectileOverride>FW_Bullet_API</projectileOverride>
+	</FlakeWombat.AmmoSubTypeDef>
+	<FlakeWombat.AmmoSubTypeDef ParentName="FW_API">
+		<defName>APIS</defName>
+		<label>tactical rounds</label>
+
+		<level>Spacer</level>
+		<projectileOverride>FW_Bullet_API_Plasma</projectileOverride>
+	</FlakeWombat.AmmoSubTypeDef>
+
+	<FlakeWombat.AmmoSubTypeDef Name="FW_F">
+		<defName>Frag</defName>
+		<label>frag shells</label>
+
+		<level>Industrial</level>
+		<type>Shotgun</type>
+		<projectileOverride>FW_Bullet_Shotgun_Frag</projectileOverride>
+	</FlakeWombat.AmmoSubTypeDef>
+	<FlakeWombat.AmmoSubTypeDef ParentName="FW_F">
+		<defName>FragS</defName>
+		<label>tactical shells</label>
+
+		<level>Spacer</level>
+		<projectileOverride>FW_Bullet_Shotgun_Frag_Plasma</projectileOverride>
+	</FlakeWombat.AmmoSubTypeDef>
+
+
+	<ThingDef ParentName="FW_Ammobase">
+		<defName>FW_RoundIndustrialRifleAPI</defName>
+		<label>armor piercing incendiary round</label>
+		<description>Neither armor piercing nor incendiary, this bullet actually explodes on impact.</description>
+		<graphicData>
+			<texPath>Ammo/Rifle_Industrial</texPath>
+			<graphicClass>Graphic_StackCount</graphicClass>
+			<drawSize>0.90</drawSize>
+			<color>(192, 0, 0)</color>
+		</graphicData>
+		<statBases>
+			<Mass>0.006</Mass>
+		</statBases>
+		<stackLimit>250</stackLimit>
+		<costList>
+			<Steel>15</Steel>
+			<Chemfuel>15</Chemfuel>
+		</costList>
+		<recipeMaker>
+			<workAmount>1000</workAmount>
+			<productCount>25</productCount>
+			<bulkRecipeCount>5</bulkRecipeCount>
+		</recipeMaker>
+	</ThingDef>
+	<ThingDef ParentName="FW_AmmobaseSpacer">
+		<defName>FW_RoundSpacerRifleAPIS</defName>
+		<label>charge tactical round</label>
+		<description>A high tech bullet containing a miniature tactical grenade.</description>
+		<graphicData>
+			<texPath>Ammo/Rifle_Spacer</texPath>
+			<graphicClass>Graphic_StackCount</graphicClass>
+			<drawSize>0.90</drawSize>
+			<color>(192, 32, 32)</color>
+		</graphicData>
+		<statBases>
+			<Mass>0.006</Mass>
+		</statBases>
+		<stackLimit>250</stackLimit>
+		<costList>
+			<Plasteel>25</Plasteel>
+			<Uranium>5</Uranium>
+			<ComponentIndustrial>1</ComponentIndustrial>
+		</costList>
+		<recipeMaker>
+			<workAmount>1000</workAmount>
+			<productCount>50</productCount>
+		</recipeMaker>
+	</ThingDef>
+	<ThingDef ParentName="BaseBullet">
+		<defName>FW_Bullet_API</defName>
+		<label>armor piercing incendiary bullet</label>
+		<thingClass>Projectile_Explosive</thingClass>
+		<graphicData>
+			<texPath>Things/Projectile/Bullet_Big</texPath>
+			<graphicClass>Graphic_Single</graphicClass>
+		</graphicData>
+		<projectile>
+			<damageDef>Bomb</damageDef>
+			<damageAmountBase>1</damageAmountBase>
+			<stoppingPower>2</stoppingPower>
+			<explosionRadius>0.4</explosionRadius>
+			<speed>100</speed>
+		</projectile>
+	</ThingDef>
+	<ThingDef ParentName="BaseBullet">
+		<defName>FW_Bullet_API_Plasma</defName>
+		<label>tactical bullet</label>
+		<thingClass>Projectile_Explosive</thingClass>
+		<graphicData>
+			<texPath>Things/Projectile/ChargeLanceShot</texPath>
+			<graphicClass>Graphic_Single</graphicClass>
+		</graphicData>
+		<projectile>
+			<damageDef>Bomb</damageDef>
+			<damageAmountBase>1</damageAmountBase>
+			<stoppingPower>2</stoppingPower>
+			<explosionRadius>0.4</explosionRadius>
+			<speed>100</speed>
+		</projectile>
+	</ThingDef>
+
+	<ThingDef ParentName="FW_Ammobase">
+		<defName>FW_RoundIndustrialShotgunFrag</defName>
+		<label>frag shell</label>
+		<description>A simple shotgun shell containing a small frag grenade.</description>
+		<graphicData>
+			<texPath>Ammo/Shotgun_Industrial</texPath>
+			<graphicClass>Graphic_StackCount</graphicClass>
+			<drawSize>0.90</drawSize>
+			<color>(192, 0, 0)</color>
+		</graphicData>
+		<statBases>
+			<Mass>0.006</Mass>
+		</statBases>
+		<stackLimit>150</stackLimit>
+		<stuffCategories>
+			<li>Woody</li>
+		</stuffCategories>
+		<costStuffCount>5</costStuffCount>
+		<defaultStuff>WoodLog</defaultStuff>
+		<costList>
+			<Steel>10</Steel>
+			<Chemfuel>15</Chemfuel>
+		</costList>
+		<recipeMaker>
+			<workAmount>1000</workAmount>
+			<productCount>25</productCount>
+			<bulkRecipeCount>3</bulkRecipeCount>
+		</recipeMaker>
+	</ThingDef>
+	<ThingDef ParentName="FW_AmmobaseSpacer">
+		<defName>FW_RoundSpacerShotgunFragS</defName>
+		<label>charge tactical shell</label>
+		<description>A high tech shotgun shell containing a small tactical grenade.</description>
+		<graphicData>
+			<texPath>Ammo/Shotgun_Spacer</texPath>
+			<graphicClass>Graphic_StackCount</graphicClass>
+			<drawSize>0.90</drawSize>
+			<color>(192, 32, 32)</color>
+		</graphicData>
+		<statBases>
+			<Mass>0.006</Mass>
+		</statBases>
+		<stackLimit>150</stackLimit>
+		<costList>
+			<Plasteel>25</Plasteel>
+			<Uranium>5</Uranium>
+			<ComponentIndustrial>1</ComponentIndustrial>
+		</costList>
+		<recipeMaker>
+			<workAmount>1000</workAmount>
+			<productCount>50</productCount>
+		</recipeMaker>
+	</ThingDef>
+	<ThingDef ParentName="BaseBullet">
+		<defName>FW_Bullet_Shotgun_Frag</defName>
+		<label>shotgun frag shot</label>
+		<thingClass>Projectile_Explosive</thingClass>
+		<graphicData>
+			<texPath>Things/Projectile/Bullet_Big</texPath>
+			<graphicClass>Graphic_Single</graphicClass>
+		</graphicData>
+		<projectile>
+			<damageDef>Bomb</damageDef>
+			<damageAmountBase>1</damageAmountBase>
+			<stoppingPower>4</stoppingPower>
+			<explosionRadius>0.9</explosionRadius>
+			<speed>100</speed>
+		</projectile>
+	</ThingDef>
+	<ThingDef ParentName="BaseBullet">
+		<defName>FW_Bullet_Shotgun_Frag_Plasma</defName>
+		<label>shotgun tactical frag</label>
+		<thingClass>Projectile_Explosive</thingClass>
+		<graphicData>
+			<texPath>Things/Projectile/ChargeLanceShot</texPath>
+			<graphicClass>Graphic_Single</graphicClass>
+		</graphicData>
+		<projectile>
+			<damageDef>Bomb</damageDef>
+			<damageAmountBase>1</damageAmountBase>
+			<armorPenetrationBase>0.42</armorPenetrationBase>
+			<stoppingPower>4</stoppingPower>
+			<explosionRadius>0.9</explosionRadius>
+			<speed>100</speed>
+		</projectile>
+	</ThingDef>
+</Defs>

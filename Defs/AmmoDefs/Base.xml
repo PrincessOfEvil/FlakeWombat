@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+	<PawnColumnDef>
+		<defName>FW_Ammo</defName>
+		<label>ammo</label>
+		<workerClass>FlakeWombat.PawnColumnWorker_CarryAmmo</workerClass>
+		<sortable>true</sortable>
+	</PawnColumnDef>
+	<StatCategoryDef>
+		<defName>FW_Ammo</defName>
+		<label>Weapon ammo</label>
+		<displayOrder>43</displayOrder>
+	</StatCategoryDef>
+	<ThingCategoryDef>
+		<defName>FW_Ammo</defName>
+		<label>ammo</label>
+		<parent>Manufactured</parent>
+		<iconPath>UI/Icons/ThingCategories/MortarShells</iconPath>
+	</ThingCategoryDef>
+
+	<FlakeWombat.AmmoSubTypeDef>
+		<defName>basic</defName>
+		<label>basic ammo</label>
+	</FlakeWombat.AmmoSubTypeDef>
+
+	<ThingDef ParentName="ResourceBase" Name="FW_Ammobase" Abstract="True">
+		<stackLimit>69</stackLimit>
+		<healthAffectsPrice>false</healthAffectsPrice>
+		<uiIconForStackCount>69</uiIconForStackCount>
+		<soundInteract>Metal_Drop</soundInteract>
+		<soundDrop>Standard_Drop</soundDrop>
+		<statBases>
+			<MaxHitPoints>60</MaxHitPoints>
+			<Mass>0.003</Mass>
+			<Flammability>0.8</Flammability>
+			<DeteriorationRate>2.0</DeteriorationRate>
+		</statBases>
+		<smallVolume>true</smallVolume>
+		<recipeMaker>
+			<workSpeedStat>GeneralLaborSpeed</workSpeedStat>
+			<effectWorking>Cook</effectWorking>
+			<soundWorking>Recipe_Machining</soundWorking>
+			<workAmount>800</workAmount>
+			<targetCountAdjustment>25</targetCountAdjustment>
+			<workSkill>Crafting</workSkill>
+			<recipeUsers>
+				<li>TableMachining</li>
+			</recipeUsers>
+			<skillRequirements>
+				<Crafting>4</Crafting>
+			</skillRequirements>
+		</recipeMaker>
+		<thingCategories>
+			<li>FW_Ammo</li>
+		</thingCategories>
+		<modExtensions>
+			<li Class="FlakeWombat.DefExtension_Unstuffed" />
+		</modExtensions>
+	</ThingDef>
+	<ThingDef ParentName="FW_Ammobase" Name="FW_AmmobaseNeolithic" Abstract="True">
+		<stackLimit>13</stackLimit>
+		<uiIconForStackCount>13</uiIconForStackCount>
+		<statBases>
+			<Flammability>0</Flammability>
+			<DeteriorationRate>1.0</DeteriorationRate>
+		</statBases>
+		<recipeMaker>
+			<recipeUsers Inherit="False">
+				<li>CraftingSpot</li>
+			</recipeUsers>
+			<skillRequirements Inherit="False" />
+		</recipeMaker>
+	</ThingDef>
+	<ThingDef ParentName="FW_Ammobase" Name="FW_AmmobaseSpacer" Abstract="True">
+		<statBases>
+			<Flammability>0.6</Flammability>
+			<DeteriorationRate>4.0</DeteriorationRate>
+		</statBases>
+		<recipeMaker>
+			<recipeUsers Inherit="False">
+				<li>FabricationBench</li>
+			</recipeUsers>
+			<skillRequirements>
+				<Crafting>6</Crafting>
+			</skillRequirements>
+		</recipeMaker>
+	</ThingDef>
+
+</Defs>

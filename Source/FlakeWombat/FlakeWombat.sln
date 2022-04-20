@@ -1,0 +1,30 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30503.244
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FlakeWombat", "FlakeWombat.csproj", "{05DEA0F7-B6D5-4DC2-80C0-B7D1C8759104}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RimWorld", "..\..\..\..\Source\RimWorld.csproj", "{36430428-9D40-47A1-AC78-D6BBD8DA047B}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{05DEA0F7-B6D5-4DC2-80C0-B7D1C8759104}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{05DEA0F7-B6D5-4DC2-80C0-B7D1C8759104}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{05DEA0F7-B6D5-4DC2-80C0-B7D1C8759104}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{05DEA0F7-B6D5-4DC2-80C0-B7D1C8759104}.Release|Any CPU.Build.0 = Release|Any CPU
+		{36430428-9D40-47A1-AC78-D6BBD8DA047B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{36430428-9D40-47A1-AC78-D6BBD8DA047B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{36430428-9D40-47A1-AC78-D6BBD8DA047B}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {050517C8-4B6E-42E4-A1E5-1130852D47AC}
+	EndGlobalSection
+EndGlobal

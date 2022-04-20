@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8" ?>
+
+<Patch>
+	<Operation Class="PatchOperationAttributeAdd">
+		<xpath>/Defs/DamageDef[defName="EMP"]</xpath>
+		<attribute>Name</attribute>
+		<value>FW_EMP_Damage</value>
+	</Operation>
+</Patch>

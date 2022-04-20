@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+	<ThingDef ParentName="FW_AmmobaseSpacer">
+		<defName>FW_RoundSpacerPistol</defName>
+		<label>charge pistol round</label>
+		<description>A high tech, plasma jacket, low pressure round.</description>
+		<graphicData>
+			<texPath>Ammo/Pistol_Spacer</texPath>
+			<graphicClass>Graphic_StackCount</graphicClass>
+			<drawSize>0.90</drawSize>
+			<color>(228, 200, 98)</color>
+		</graphicData>
+		<stackLimit>500</stackLimit>
+		<costList>
+			<Plasteel>5</Plasteel>
+			<Steel>25</Steel>
+			<Chemfuel>25</Chemfuel>
+			<ComponentIndustrial>1</ComponentIndustrial>
+		</costList>
+		<recipeMaker>
+			<productCount>250</productCount>
+			<bulkRecipeCount>2</bulkRecipeCount>
+		</recipeMaker>
+	</ThingDef>
+	<ThingDef ParentName="FW_AmmobaseSpacer">
+		<defName>FW_RoundSpacerRifle</defName>
+		<label>charge rifle round</label>
+		<description>A high tech, plasma jacket, high pressure round.</description>
+		<graphicData>
+			<texPath>Ammo/Rifle_Spacer</texPath>
+			<graphicClass>Graphic_StackCount</graphicClass>
+			<drawSize>0.90</drawSize>
+			<color>(228, 200, 98)</color>
+		</graphicData>
+		<stackLimit>250</stackLimit>
+		<costList>
+			<Plasteel>5</Plasteel>
+			<Steel>25</Steel>
+			<Chemfuel>25</Chemfuel>
+			<ComponentIndustrial>1</ComponentIndustrial>
+		</costList>
+		<recipeMaker>
+			<productCount>125</productCount>
+			<bulkRecipeCount>2</bulkRecipeCount>
+		</recipeMaker>
+	</ThingDef>
+	<ThingDef ParentName="FW_AmmobaseSpacer">
+		<defName>FW_RoundSpacerShotgun</defName>
+		<label>charge shotgun shell</label>
+		<description>A high tech shotgun shell containing heavy plasma buckshot.</description>
+		<graphicData>
+			<texPath>Ammo/Shotgun_Spacer</texPath>
+			<graphicClass>Graphic_StackCount</graphicClass>
+			<drawSize>0.90</drawSize>
+			<color>(228, 200, 98)</color>
+		</graphicData>
+		<statBases>
+			<Mass>0.006</Mass>
+		</statBases>
+		<stackLimit>150</stackLimit>
+		<costList>
+			<Plasteel>5</Plasteel>
+			<Steel>25</Steel>
+			<Chemfuel>25</Chemfuel>
+			<ComponentIndustrial>1</ComponentIndustrial>
+		</costList>
+		<recipeMaker>
+			<productCount>150</productCount>
+		</recipeMaker>
+	</ThingDef>
+	<ThingDef ParentName="FW_AmmobaseSpacer">
+		<defName>FW_RoundSpacerExplosive</defName>
+		<label>charge explosive cartridge</label>
+		<description>A high tech, large-caliber cartridge containing a tactical explosive grenade.</description>
+		<graphicData>
+			<texPath>Ammo/Explosive_Spacer</texPath>
+			<graphicClass>Graphic_StackCount</graphicClass>
+			<drawSize>0.90</drawSize>
+			<color>(228, 200, 98)</color>
+		</graphicData>
+		<statBases>
+			<Mass>0.01</Mass>
+		</statBases>
+		<stackLimit>75</stackLimit>
+		<costList>
+			<Plasteel>25</Plasteel>
+			<Uranium>5</Uranium>
+			<ComponentIndustrial>1</ComponentIndustrial>
+		</costList>
+		<recipeMaker>
+			<productCount>15</productCount>
+			<bulkRecipeCount>5</bulkRecipeCount>
+		</recipeMaker>
+	</ThingDef>
+	<ThingDef ParentName="FW_AmmobaseSpacer">
+		<defName>FW_RoundSpacerEnergy</defName>
+		<label>charge energy cell</label>
+		<description>A high tech single-use cell, usable either in energy weapons or as-is, as an EMP grenade.</description>
+		<graphicData>
+			<texPath>Ammo/Energy_Spacer</texPath>
+			<graphicClass>Graphic_StackCount</graphicClass>
+			<drawSize>0.90</drawSize>
+			<color>(228, 200, 98)</color>
+		</graphicData>
+		<stackLimit>250</stackLimit>
+		<costList>
+			<Plasteel>5</Plasteel>
+			<Steel>25</Steel>
+			<Uranium>5</Uranium>
+			<ComponentSpacer>1</ComponentSpacer>
+		</costList>
+		<recipeMaker>
+			<productCount>250</productCount>
+		</recipeMaker>
+	</ThingDef>
+</Defs>

@@ -1,0 +1,217 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+	<FlakeWombat.AmmoSubTypeDef Name="FW_EMP">
+		<defName>EMP</defName>
+		<label>shock rounds</label>
+
+		<level>Industrial</level>
+		<type>Rifle</type>
+		<projectileOverride>FW_Bullet_EMP</projectileOverride>
+	</FlakeWombat.AmmoSubTypeDef>
+	<FlakeWombat.AmmoSubTypeDef ParentName="FW_EMP">
+		<defName>EMPS</defName>
+		<label>EMP rounds</label>
+
+		<level>Spacer</level>
+		<projectileOverride>FW_Bullet_EMP_Plasma</projectileOverride>
+	</FlakeWombat.AmmoSubTypeDef>
+
+	<FlakeWombat.AmmoSubTypeDef Name="FW_EMPS">
+		<defName>EMPSh</defName>
+		<label>shock shells</label>
+
+		<level>Industrial</level>
+		<type>Shotgun</type>
+		<projectileOverride>FW_Bullet_Shotgun_EMP</projectileOverride>
+	</FlakeWombat.AmmoSubTypeDef>
+	<FlakeWombat.AmmoSubTypeDef ParentName="FW_EMPS">
+		<defName>EMPShS</defName>
+		<label>EMP shells</label>
+
+		<level>Spacer</level>
+		<projectileOverride>FW_Bullet_Shotgun_EMP_Plasma</projectileOverride>
+	</FlakeWombat.AmmoSubTypeDef>
+
+
+	<ThingDef ParentName="FW_Ammobase">
+		<defName>FW_RoundIndustrialRifleEMP</defName>
+		<label>shock round</label>
+		<description>A simple electrically charged high pressure round. Does much more damage to mechanoids.</description>
+		<graphicData>
+			<texPath>Ammo/Rifle_Industrial</texPath>
+			<graphicClass>Graphic_StackCount</graphicClass>
+			<drawSize>0.90</drawSize>
+			<color>(0,192,192)</color>
+		</graphicData>
+		<statBases>
+			<Mass>0.006</Mass>
+		</statBases>
+		<stackLimit>250</stackLimit>
+		<costList>
+			<Steel>20</Steel>
+			<Chemfuel>10</Chemfuel>
+		</costList>
+		<recipeMaker>
+			<workAmount>1000</workAmount>
+			<productCount>50</productCount>
+			<bulkRecipeCount>5</bulkRecipeCount>
+		</recipeMaker>
+	</ThingDef>
+	<ThingDef ParentName="FW_AmmobaseSpacer">
+		<defName>FW_RoundSpacerRifleEMPS</defName>
+		<label>charge EMP round</label>
+		<description>A high tech, high pressure round that releases an electromagnetic impulse on impact. Does much more damage to mechanoids</description>
+		<graphicData>
+			<texPath>Ammo/Rifle_Spacer</texPath>
+			<graphicClass>Graphic_StackCount</graphicClass>
+			<drawSize>0.90</drawSize>
+			<color>(32,192,192)</color>
+		</graphicData>
+		<statBases>
+			<Mass>0.006</Mass>
+		</statBases>
+		<stackLimit>250</stackLimit>
+		<costList>
+			<Plasteel>7</Plasteel>
+			<Steel>20</Steel>
+			<Chemfuel>20</Chemfuel>
+			<ComponentIndustrial>2</ComponentIndustrial>
+		</costList>
+		<recipeMaker>
+			<workAmount>1000</workAmount>
+			<productCount>125</productCount>
+			<bulkRecipeCount>2</bulkRecipeCount>
+		</recipeMaker>
+	</ThingDef>
+	<ThingDef ParentName="BaseBullet">
+		<defName>FW_Bullet_EMP</defName>
+		<label>shock bullet</label>
+		<graphicData>
+			<texPath>Things/Projectile/Bullet_Big</texPath>
+			<graphicClass>Graphic_Single</graphicClass>
+		</graphicData>
+		<projectile>
+			<damageDef>Bullet</damageDef>
+			<damageAmountBase>1</damageAmountBase>
+			<extraDamages>
+				<li>
+					<def>EMP</def>
+					<amount>5</amount>
+				</li>
+			</extraDamages>
+			<speed>200</speed>
+		</projectile>
+	</ThingDef>
+	<ThingDef ParentName="BaseBullet">
+		<defName>FW_Bullet_EMP_Plasma</defName>
+		<label>EMP bullet</label>
+		<graphicData>
+			<texPath>Things/Projectile/ChargeLanceShot</texPath>
+			<graphicClass>Graphic_Single</graphicClass>
+		</graphicData>
+		<projectile>
+			<damageDef>Bullet</damageDef>
+			<damageAmountBase>1</damageAmountBase>
+			<extraDamages>
+				<li>
+					<def>EMP</def>
+					<amount>10</amount>
+				</li>
+			</extraDamages>
+			<speed>200</speed>
+		</projectile>
+	</ThingDef>
+
+	<ThingDef ParentName="FW_Ammobase">
+		<defName>FW_RoundIndustrialShotgunEMPSh</defName>
+		<label>shock shell</label>
+		<description>A simple electrically charged shotgun shell. Does much more damage to mechanoids.</description>
+		<graphicData>
+			<texPath>Ammo/Shotgun_Industrial</texPath>
+			<graphicClass>Graphic_StackCount</graphicClass>
+			<drawSize>0.90</drawSize>
+			<color>(0,192,192)</color>
+		</graphicData>
+		<statBases>
+			<Mass>0.006</Mass>
+		</statBases>
+		<stackLimit>150</stackLimit>
+		<stuffCategories>
+			<li>Woody</li>
+		</stuffCategories>
+		<costStuffCount>5</costStuffCount>
+		<defaultStuff>WoodLog</defaultStuff>
+		<costList>
+			<Steel>15</Steel>
+			<Chemfuel>10</Chemfuel>
+		</costList>
+		<recipeMaker>
+			<workAmount>1000</workAmount>
+			<productCount>50</productCount>
+			<bulkRecipeCount>3</bulkRecipeCount>
+		</recipeMaker>
+	</ThingDef>
+	<ThingDef ParentName="FW_AmmobaseSpacer">
+		<defName>FW_RoundSpacerShotgunEMPShS</defName>
+		<label>charge EMP shell</label>
+		<description>A high tech shotgun shell that releases an electromagnetic impulse on impact. Does much more damage to mechanoids.</description>
+		<graphicData>
+			<texPath>Ammo/Shotgun_Spacer</texPath>
+			<graphicClass>Graphic_StackCount</graphicClass>
+			<drawSize>0.90</drawSize>
+			<color>(32,192,192)</color>
+		</graphicData>
+		<statBases>
+			<Mass>0.006</Mass>
+		</statBases>
+		<stackLimit>150</stackLimit>
+		<costList>
+			<Plasteel>7</Plasteel>
+			<Steel>20</Steel>
+			<Chemfuel>20</Chemfuel>
+			<ComponentIndustrial>2</ComponentIndustrial>
+		</costList>
+		<recipeMaker>
+			<workAmount>1000</workAmount>
+			<productCount>150</productCount>
+		</recipeMaker>
+	</ThingDef>
+	<ThingDef ParentName="BaseBullet">
+		<defName>FW_Bullet_Shotgun_EMP</defName>
+		<label>shotgun shock slug</label>
+		<graphicData>
+			<texPath>Things/Projectile/Bullet_Big</texPath>
+			<graphicClass>Graphic_Single</graphicClass>
+		</graphicData>
+		<projectile>
+			<damageDef>Bullet</damageDef>
+			<damageAmountBase>1</damageAmountBase>
+			<extraDamages>
+				<li>
+					<def>EMP</def>
+					<amount>10</amount>
+				</li>
+			</extraDamages>
+			<speed>200</speed>
+		</projectile>
+	</ThingDef>
+	<ThingDef ParentName="BaseBullet">
+		<defName>FW_Bullet_Shotgun_EMP_Plasma</defName>
+		<label>shotgun charge EMP slug</label>
+		<graphicData>
+			<texPath>Things/Projectile/ChargeLanceShot</texPath>
+			<graphicClass>Graphic_Single</graphicClass>
+		</graphicData>
+		<projectile>
+			<damageDef>Bullet</damageDef>
+			<damageAmountBase>1</damageAmountBase>
+			<extraDamages>
+				<li>
+					<def>EMP</def>
+					<amount>20</amount>
+				</li>
+			</extraDamages>
+			<speed>200</speed>
+		</projectile>
+	</ThingDef>
+</Defs>

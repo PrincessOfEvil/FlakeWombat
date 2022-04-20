@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+	<ThingDef ParentName="FW_Ammobase">
+		<defName>FW_RoundIndustrialPistol</defName>
+		<label>pistol round</label>
+		<description>A simple, full metal jacket, low pressure round.</description>
+		<graphicData>
+			<texPath>Ammo/Pistol_Industrial</texPath>
+			<graphicClass>Graphic_StackCount</graphicClass>
+			<drawSize>0.90</drawSize>
+			<color>(186, 140, 99)</color>
+		</graphicData>
+		<stackLimit>500</stackLimit>
+		<costList>
+			<Steel>15</Steel>
+			<Chemfuel>15</Chemfuel>
+		</costList>
+		<recipeMaker>
+			<productCount>100</productCount>
+			<bulkRecipeCount>5</bulkRecipeCount>
+		</recipeMaker>
+	</ThingDef>
+	<ThingDef ParentName="FW_Ammobase">
+		<defName>FW_RoundIndustrialRifle</defName>
+		<label>rifle round</label>
+		<description>A simple, full metal jacket, high pressure round.</description>
+		<graphicData>
+			<texPath>Ammo/Rifle_Industrial</texPath>
+			<graphicClass>Graphic_StackCount</graphicClass>
+			<drawSize>0.90</drawSize>
+			<color>(186, 140, 99)</color>
+		</graphicData>
+		<stackLimit>250</stackLimit>
+		<costList>
+			<Steel>15</Steel>
+			<Chemfuel>15</Chemfuel>
+		</costList>
+		<recipeMaker>
+			<productCount>50</productCount>
+			<bulkRecipeCount>5</bulkRecipeCount>
+		</recipeMaker>
+	</ThingDef>
+	<ThingDef ParentName="FW_Ammobase">
+		<defName>FW_RoundIndustrialShotgun</defName>
+		<label>shotgun shell</label>
+		<description>A simple shotgun shell containing heavy buckshot.</description>
+		<graphicData>
+			<texPath>Ammo/Shotgun_Industrial</texPath>
+			<graphicClass>Graphic_StackCount</graphicClass>
+			<drawSize>0.90</drawSize>
+			<color>(186, 140, 99)</color>
+		</graphicData>
+		<statBases>
+			<Mass>0.006</Mass>
+		</statBases>
+		<stackLimit>150</stackLimit>
+		<stuffCategories>
+			<li>Woody</li>
+		</stuffCategories>
+		<costStuffCount>10</costStuffCount>
+		<defaultStuff>WoodLog</defaultStuff>
+		<costList>
+			<Steel>10</Steel>
+			<Chemfuel>10</Chemfuel>
+		</costList>
+		<recipeMaker>
+			<productCount>50</productCount>
+			<bulkRecipeCount>3</bulkRecipeCount>
+		</recipeMaker>
+	</ThingDef>
+	<ThingDef ParentName="FW_Ammobase">
+		<defName>FW_RoundIndustrialExplosive</defName>
+		<label>high explosive cartridge</label>
+		<description>A simple, large-caliber cartridge containing a high explosive grenade.</description>
+		<graphicData>
+			<texPath>Ammo/Explosive_Industrial</texPath>
+			<graphicClass>Graphic_StackCount</graphicClass>
+			<drawSize>0.90</drawSize>
+			<color>(186, 140, 99)</color>
+		</graphicData>
+		<statBases>
+			<Mass>0.01</Mass>
+		</statBases>
+		<stackLimit>75</stackLimit>
+		<costList>
+			<Steel>15</Steel>
+			<Chemfuel>15</Chemfuel>
+		</costList>
+		<recipeMaker>
+			<productCount>10</productCount>
+			<bulkRecipeCount>5</bulkRecipeCount>
+		</recipeMaker>
+	</ThingDef>
+	<ThingDef ParentName="FW_Ammobase">
+		<defName>FW_RoundIndustrialEnergy</defName>
+		<label>energy cell</label>
+		<description>A simple single-use cell, usable either in energy weapons or as-is, as an EMP grenade.</description>
+		<graphicData>
+			<texPath>Ammo/Energy_Industrial</texPath>
+			<graphicClass>Graphic_StackCount</graphicClass>
+			<drawSize>0.90</drawSize>
+			<color>(186, 140, 99)</color>
+		</graphicData>
+		<stackLimit>250</stackLimit>
+		<costList>
+			<Steel>15</Steel>
+			<ComponentIndustrial>1</ComponentIndustrial>
+		</costList>
+		<recipeMaker>
+			<productCount>50</productCount>
+			<bulkRecipeCount>5</bulkRecipeCount>
+		</recipeMaker>
+	</ThingDef>
+</Defs>
