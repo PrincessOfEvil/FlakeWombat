@@ -78,13 +78,19 @@ namespace FlakeWombat
         public AmmoSubTypeDef currentAmmo;
         protected List<AmmoSubTypeDef> ammoTypesCached;
 
-        public ThingStuffPair? currentAmmoThing;
+        public ThingStuffPairWithQuality? currentAmmoThing;
 
         public ThingDef realAmmo => parent.def.ammoDef(currentAmmo);
 
         public CompAmmo() : base() 
             {
             remainingCharges = AccessTools.FieldRefAccess<int>(typeof(CompReloadable), "remainingCharges");
+            }
+        public override void PostExposeData()
+            {
+            base.PostExposeData();
+            Scribe_Defs.Look(ref currentAmmo, "FW.currentAmmo");
+            Scribe_Deep.Look(ref currentAmmoThing, "FW.currentAmmoThing");
             }
         public override string CompInspectStringExtra()
             {
@@ -199,7 +205,7 @@ namespace FlakeWombat
             {
             if (__instance is CompAmmo comp && comp.NeedsReload(true) && ammo.stackCount < (__instance.Props.ammoCountToRefill != 0 ? __instance.Props.ammoCountToRefill : __instance.Props.ammoCountPerCharge)) 
                 {
-                ThingStuffPair ts = new(ammo.def, ammo.Stuff);
+                ThingStuffPairWithQuality ts = new(ammo.def, ammo.Stuff, QualityCategory.Normal);
                 if (ts != comp.currentAmmoThing) comp.unloadAmmo();
                 comp.currentAmmoThing = ts;
                 }

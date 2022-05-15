@@ -34,6 +34,7 @@
 			<Mass>0.003</Mass>
 			<Flammability>0.8</Flammability>
 			<DeteriorationRate>2.0</DeteriorationRate>
+			<MarketValue>1</MarketValue>
 		</statBases>
 		<smallVolume>true</smallVolume>
 		<recipeMaker>

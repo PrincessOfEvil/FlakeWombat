@@ -73,13 +73,15 @@ namespace FlakeWombat
 
         public static bool isAmmoWeapon(this ThingDef t) =>
                                         t.IsRangedWeapon &&
+                                        t.weaponTags != null &&
+                                        !(t.weaponTags.Contains("TurretGun") || t.weaponTags.Contains("Artillery")) &&
                                         t.Verbs != null &&
                                         t.Verbs.Count >= 1 &&
                                         t.Verbs[0].verbClass != null &&
                                         t.Verbs[0].verbClass != typeof(Verb_ShootOneUse) &&
                                         t.Verbs[0].consumeFuelPerShot <= 0f &&
-                                        t.weaponTags != null &&
-                                        !(t.weaponTags.Contains("TurretGun") || t.weaponTags.Contains("Artillery"));
+                                        t.Verbs[0].defaultProjectile != null &&
+                                        t.Verbs[0].defaultProjectile.projectile.damageDef != null;
 
         public static float ammoPerSecond(this ThingDef thing)
             {

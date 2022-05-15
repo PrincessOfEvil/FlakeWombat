@@ -61,6 +61,9 @@ namespace FlakeWombat
                 return true;
             if (thing.Verbs[0].defaultProjectile.projectile.damageDef.armorCategory == DefOf.DamageArmorCategory_Heat)
                 return true;
+            string label = thing.baseLabel().ToLower();
+            if (label.Contains("las") || label.Contains("melta"))
+                return true;
 
             return false;
             }
