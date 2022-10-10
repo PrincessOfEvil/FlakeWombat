@@ -36,6 +36,11 @@
 			<DeteriorationRate>2.0</DeteriorationRate>
 			<MarketValue>1</MarketValue>
 		</statBases>
+		<comps>
+			<li>
+				<compClass>FlakeWombat.CompAmmoData</compClass>
+			</li>
+		</comps>
 		<smallVolume>true</smallVolume>
 		<recipeMaker>
 			<workSpeedStat>GeneralLaborSpeed</workSpeedStat>

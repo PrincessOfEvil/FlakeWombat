@@ -11,12 +11,12 @@ namespace FlakeWombat
     {
     public static class Cooldown
         {
-        public static float decreasePer10Levels = 0.75f;
+        public const float DECREASE_PER10_LEVELS = 0.75f;
 
-        public static float AdjustCooldown(float input, float level) => input / (1f + Cooldown.decreasePer10Levels * level / 10f);
+        public static float AdjustCooldown(float input, float level) => input / (1f + DECREASE_PER10_LEVELS * level / 10f);
         }
 
-    [HarmonyPatch(typeof(VerbProperties), "AdjustedCooldown", new[] { typeof(Tool), typeof(Pawn), typeof(Thing) })]
+    [HarmonyPatch(typeof(VerbProperties), nameof(VerbProperties.AdjustedCooldown), typeof(Tool), typeof(Pawn), typeof(Thing))]
     public class FlakeWombat_VerbProperties_AdjustedCooldown : CooldownPatch
         {
         public static float Postfix(float ret, Tool tool, Pawn attacker, Thing equipment)

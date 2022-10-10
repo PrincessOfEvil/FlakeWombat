@@ -1,18 +1,14 @@
-﻿using HarmonyLib;
-using RimWorld;
-using System;
-using System.Collections.Generic;
+﻿using System;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Reflection;
-using System.Reflection.Emit;
-using System.Text;
-using System.Threading.Tasks;
+using HarmonyLib;
 using UnityEngine;
 using Verse;
-using Verse.AI;
 
 namespace FlakeWombat
     {
+    [SuppressMessage("ReSharper", "RedundantDefaultMemberInitializer")]
     public class Settings : ModSettings
         {
         public static bool accuracy = true;
@@ -28,22 +24,22 @@ namespace FlakeWombat
         public static bool ammoSpawn = true;
         public override void ExposeData()
             {
-            Scribe_Values.Look<bool>(ref accuracy, "FW_Accuracy", true);
-            Scribe_Values.Look<bool>(ref accuracyUnlimited, "FW_AccuracyUnlimited", true);
+            Scribe_Values.Look(ref accuracy, "FW_Accuracy", true);
+            Scribe_Values.Look(ref accuracyUnlimited, "FW_AccuracyUnlimited", true);
 
-            Scribe_Values.Look<bool>(ref cooldown, "FW_Cooldown", true);
+            Scribe_Values.Look(ref cooldown, "FW_Cooldown", true);
 
-            Scribe_Values.Look<bool>(ref armor, "FW_Armor", true);
-            Scribe_Values.Look<bool>(ref buildingArmor, "FW_BuildingArmor", true);
+            Scribe_Values.Look(ref armor, "FW_Armor", true);
+            Scribe_Values.Look(ref buildingArmor, "FW_BuildingArmor", true);
 
-            Scribe_Values.Look<bool>(ref ammo, "FW_AmmoSystem", true);
-            Scribe_Values.Look<bool>(ref ammoStatic, "FW_AmmoStatic", false);
-            Scribe_Values.Look<bool>(ref ammoSpawn, "FW_AmmoSpawn", true);
+            Scribe_Values.Look(ref ammo, "FW_AmmoSystem", true);
+            Scribe_Values.Look(ref ammoStatic, "FW_AmmoStatic");
+            Scribe_Values.Look(ref ammoSpawn, "FW_AmmoSpawn", true);
             }
 
         public bool[] listAll()
             {
-            return this.GetType().GetFields().Where(f => f.FieldType == typeof(bool)).Select(f => (bool)f.GetValue(this)).ToArray();
+            return GetType().GetFields().Where(f => f.FieldType == typeof(bool)).Select(f => (bool)f.GetValue(this)).ToArray();
             }
         }
 
@@ -51,45 +47,43 @@ namespace FlakeWombat
         {
         public Settings settings;
 
-        private static readonly float length = 192f;
-        private static readonly float height = 32f;
+        private const float LENGTH = 192f;
+        private const float HEIGHT = 32f;
+
         public override string SettingsCategory()
             {
             return "FlakeWombat";
             }
         public override void DoSettingsWindowContents(Rect inRect)
             {
-            float curY = height * 2;
-            Widgets.CheckboxLabeled(new Rect(0, curY, length, height), "accuracy", ref Settings.accuracy);
-            curY += height;
-            Widgets.CheckboxLabeled(new Rect(0, curY, length, height), "accuracyUnlimited", ref Settings.accuracyUnlimited);
-            curY += height;
+            float curY = EarlyLoader.HEIGHT * 2;
+            Widgets.CheckboxLabeled(new Rect(0, curY, LENGTH, HEIGHT), "accuracy", ref Settings.accuracy);
+            curY += EarlyLoader.HEIGHT;
+            Widgets.CheckboxLabeled(new Rect(0, curY, LENGTH, HEIGHT), "accuracyUnlimited", ref Settings.accuracyUnlimited);
+            curY += EarlyLoader.HEIGHT;
 
-            Widgets.CheckboxLabeled(new Rect(0, curY, length, height), "armor", ref Settings.armor);
-            curY += height;
-            Widgets.CheckboxLabeled(new Rect(0, curY, length, height), "buildingArmor", ref Settings.buildingArmor);
-            curY += height;
+            Widgets.CheckboxLabeled(new Rect(0, curY, LENGTH, HEIGHT), "armor", ref Settings.armor);
+            curY += EarlyLoader.HEIGHT;
+            Widgets.CheckboxLabeled(new Rect(0, curY, LENGTH, HEIGHT), "buildingArmor", ref Settings.buildingArmor);
+            curY += EarlyLoader.HEIGHT;
 
-            Widgets.CheckboxLabeled(new Rect(0, curY, length, height), "ammo", ref Settings.ammo);
-            curY += height;
-            Widgets.CheckboxLabeled(new Rect(0, curY, length, height), "ammoStatic", ref Settings.ammoStatic);
-            curY += height;
-            Widgets.CheckboxLabeled(new Rect(0, curY, length, height), "ammoSpawn", ref Settings.ammoSpawn);
+            Widgets.CheckboxLabeled(new Rect(0, curY, LENGTH, HEIGHT), "ammo", ref Settings.ammo);
+            curY += EarlyLoader.HEIGHT;
+            Widgets.CheckboxLabeled(new Rect(0, curY, LENGTH, HEIGHT), "ammoStatic", ref Settings.ammoStatic);
+            curY += EarlyLoader.HEIGHT;
+            Widgets.CheckboxLabeled(new Rect(0, curY, LENGTH, HEIGHT), "ammoSpawn", ref Settings.ammoSpawn);
             }
         public override void WriteSettings()
             {
             base.WriteSettings();
 
-            Find.WindowStack.Add(new Dialog_MessageBox("FW_RequiredRestart".Translate(), buttonAAction: delegate
-                {
-                    GenCommandLine.Restart();
-                    }, buttonBText: "CloseButton".Translate(), buttonADestructive: true));
+            Find.WindowStack.Add(new Dialog_MessageBox("FW_RequiredRestart".Translate(), buttonAAction: GenCommandLine.Restart, buttonBText: "CloseButton".Translate(), buttonADestructive: true));
             }
         public EarlyLoader(ModContentPack content) : base(content)
             {
             Extensions.initLabels();
 
-            settings = this.GetSettings<Settings>();
+            settings = GetSettings<Settings>();
             var harmony = new Harmony("princess.FlakeWombat");
             Log.Message("Flake Wombat has got it going on!");
             // harmony.PatchAll(Assembly.GetExecutingAssembly());
@@ -148,19 +142,19 @@ namespace FlakeWombat
     public abstract class AmmoStaticPatch { }
     public abstract class AmmoSpawnPatch { }
 
-    static class FW_D
+    public static class FW_D
         {
-        public static void PF(MethodBase __originalMethod)
+        public static void pf(MethodBase __originalMethod)
             {
-            Log.Message(__originalMethod.DeclaringType.Name + "::" + __originalMethod.Name);
+            Log.Message(__originalMethod.DeclaringType?.Name + "::" + __originalMethod.Name);
             }
         }
 
 
     public struct MultiClassProcessor
         {
-        Harmony harmony;
-        Type type;
+        private readonly Harmony harmony;
+        private readonly Type type;
         public MultiClassProcessor(Harmony harmony, Type type)
             {
             this.harmony = harmony;
@@ -172,9 +166,9 @@ namespace FlakeWombat
             type.AllSubclassesNonAbstract().ForEach(CreateClassProcessor);
             }
 
-        private void CreateClassProcessor(Type type)
+        private void CreateClassProcessor(Type forType)
             {
-            harmony.CreateClassProcessor(type).Patch();
+            harmony.CreateClassProcessor(forType).Patch();
             }
         }
     }

@@ -5,12 +5,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Verse;
+// ReSharper disable UnusedMember.Local
 
 namespace FlakeWombat
     {
     public static class Debug
 		{
-		[DebugAction("Spawning", null, false, false, actionType = DebugActionType.ToolMap, allowedGameStates = AllowedGameStates.PlayingOnMap)]
+		[DebugAction("Spawning", actionType = DebugActionType.ToolMap, allowedGameStates = AllowedGameStates.PlayingOnMap)]
 		private static void SpawnAllWeapons()
 			{
 			foreach (ThingDef item in from def in DefDatabase<ThingDef>.AllDefs
@@ -29,7 +30,7 @@ namespace FlakeWombat
 				}
 			}
 
-		[DebugAction("Spawning", null, false, false, actionType = DebugActionType.ToolMap, allowedGameStates = AllowedGameStates.PlayingOnMap)]
+		[DebugAction("Spawning", actionType = DebugActionType.ToolMap, allowedGameStates = AllowedGameStates.PlayingOnMap)]
 		private static void SpawnAllWeaponsLegendary()
 			{
 			foreach (ThingDef item in from def in DefDatabase<ThingDef>.AllDefs
@@ -47,7 +48,7 @@ namespace FlakeWombat
 				GenPlace.TryPlaceThing(thing, UI.MouseCell(), Find.CurrentMap, ThingPlaceMode.Near);
 				}
 			}
-		[DebugAction("Spawning", null, false, false, actionType = DebugActionType.ToolMap, allowedGameStates = AllowedGameStates.PlayingOnMap)]
+		[DebugAction("Spawning" , actionType = DebugActionType.ToolMap, allowedGameStates = AllowedGameStates.PlayingOnMap)]
 		private static void SpawnAllAmmo()
 			{
 			foreach (ThingDef item in from def in DefDatabase<ThingDef>.AllDefs

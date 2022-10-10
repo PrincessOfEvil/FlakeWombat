@@ -27,10 +27,51 @@ namespace FlakeWombat
             return comp?.currentAmmo;
             }
 
+        private static readonly Dictionary<ThingDef, AmmoSubTypeDef> DICT = new();
+        public static AmmoSubTypeDef tryGetAmmoFromAmmo(this ThingDef thing)
+            {
+            if (DICT.TryGetValue(thing, out AmmoSubTypeDef output)) return output;
+
+            if (thing == ThingDefOf.Chemfuel)
+                {
+                output = DefDatabase<AmmoSubTypeDef>.GetNamed("basic");
+                DICT.Add(thing, output);
+                return output;
+                }
+            
+            output = DefDatabase<AmmoSubTypeDef>.AllDefsListForReading.First(def => 
+                {
+                    string name = thing.defName;
+                    name = name.Replace("FW_Round", "");
+
+                    TechLevel level = TechLevel.Undefined;
+                    foreach (TechLevel tLev in Enum.GetValues(typeof(TechLevel)))
+                        if (name.Contains(tLev.ToString()))
+                            {
+                            level = tLev;
+                            name = name.Replace(tLev.ToString(), "");
+                            break;
+                            }
+
+                    AmmoType type = AmmoType.All;
+                    foreach (AmmoType aType in Enum.GetValues(typeof(AmmoType)))
+                        if (name.Contains(aType.ToString()))
+                            {
+                            type = aType;
+                            name = name.Replace(aType.ToString(), "");
+                            break;
+                            }
+
+                    return def.level == level && def.type == type && (def.IsBasic || def.defName == name);
+                });
+            DICT.Add(thing, output);
+            return output;
+            }
+
         public static ThingDef ammoDef(this ThingDef def, AmmoSubTypeDef ammo)
             {
-            if (def.techLevel <= TechLevel.Medieval && def.isEnergy() && (ammo?.isBasic ?? true)) return ThingDefOf.Chemfuel;
-            return DefDatabase<ThingDef>.GetNamedSilentFail("FW_Round" + def.ammoTechLevel() + def.ammoType() + (ammo?.isBasic ?? true ? "" : ammo.defName));
+            if (def.techLevel <= TechLevel.Medieval && def.isEnergy() && (ammo?.IsBasic ?? true)) return ThingDefOf.Chemfuel;
+            return DefDatabase<ThingDef>.GetNamedSilentFail("FW_Round" + def.ammoTechLevel() + def.ammoType() + (ammo?.IsBasic ?? true ? "" : ammo.defName));
             }
 
         public static ThingDef ammoBaseDef(this ThingDef def)
@@ -69,10 +110,7 @@ namespace FlakeWombat
             }
         public static bool isExplosive(this ThingDef thing)
             {
-            if (thing.Verbs[0].defaultProjectile.projectile.damageDef.isExplosive)
-                return true;
-
-            return false;
+            return thing.Verbs[0].defaultProjectile.projectile.damageDef.isExplosive;
             }
 
         public static bool isShotgun(this ThingDef thing)

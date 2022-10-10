@@ -11,10 +11,10 @@ using Verse;
 namespace FlakeWombat
     {
 
-    [HarmonyPatch(typeof(Thing), "SpecialDisplayStats")]
+    [HarmonyPatch(typeof(Thing), nameof(Thing.SpecialDisplayStats))]
     public class FlakeWombat_Thing_SpecialDisplayStats : ArmorBuildingPatch
         {
-        static IEnumerable<StatDrawEntry> Postfix(IEnumerable<StatDrawEntry> input, Thing __instance)
+        public static IEnumerable<StatDrawEntry> Postfix(IEnumerable<StatDrawEntry> input, Thing __instance)
             {
             foreach (StatDrawEntry stat in input) yield return stat;
 
@@ -25,20 +25,21 @@ namespace FlakeWombat
             ThingDef stuff = __instance.Stuff ?? __instance.def.CostList?.MaxBy(tdcc => tdcc.count).thingDef;
 
             if (stuff == null) yield break;
-            yield return new StatDrawEntry(StatCategoryDefOf.Basics, StatDefOf.ArmorRating_Sharp, FlakeWombat_Thing_PreApplyDamage.armorMult.Evaluate(__instance.def.GetStatValueAbstract(StatDefOf.MaxHitPoints)) * stuff.GetStatValueAbstract(StatDefOf.StuffPower_Armor_Sharp), StatRequest.ForEmpty());
-            yield return new StatDrawEntry(StatCategoryDefOf.Basics, StatDefOf.ArmorRating_Blunt, FlakeWombat_Thing_PreApplyDamage.armorMult.Evaluate(__instance.def.GetStatValueAbstract(StatDefOf.MaxHitPoints)) * stuff.GetStatValueAbstract(StatDefOf.StuffPower_Armor_Blunt), StatRequest.ForEmpty());
-            yield return new StatDrawEntry(StatCategoryDefOf.Basics, StatDefOf.ArmorRating_Heat, FlakeWombat_Thing_PreApplyDamage.armorMult.Evaluate(__instance.def.GetStatValueAbstract(StatDefOf.MaxHitPoints)) * stuff.GetStatValueAbstract(StatDefOf.StuffPower_Armor_Heat), StatRequest.ForEmpty());
+            yield return new StatDrawEntry(StatCategoryDefOf.Basics, StatDefOf.ArmorRating_Sharp, FlakeWombat_Thing_PreApplyDamage.ARMOR_MULT.Evaluate(__instance.def.GetStatValueAbstract(StatDefOf.MaxHitPoints)) * stuff.GetStatValueAbstract(StatDefOf.StuffPower_Armor_Sharp), StatRequest.ForEmpty());
+            yield return new StatDrawEntry(StatCategoryDefOf.Basics, StatDefOf.ArmorRating_Blunt, FlakeWombat_Thing_PreApplyDamage.ARMOR_MULT.Evaluate(__instance.def.GetStatValueAbstract(StatDefOf.MaxHitPoints)) * stuff.GetStatValueAbstract(StatDefOf.StuffPower_Armor_Blunt), StatRequest.ForEmpty());
+            yield return new StatDrawEntry(StatCategoryDefOf.Basics, StatDefOf.ArmorRating_Heat, FlakeWombat_Thing_PreApplyDamage.ARMOR_MULT.Evaluate(__instance.def.GetStatValueAbstract(StatDefOf.MaxHitPoints)) * stuff.GetStatValueAbstract(StatDefOf.StuffPower_Armor_Heat), StatRequest.ForEmpty());
             }
         }
 
-    [HarmonyPatch(typeof(Thing), "PreApplyDamage")]
+    [HarmonyPatch(typeof(Thing), nameof(Thing.PreApplyDamage))]
     public class FlakeWombat_Thing_PreApplyDamage : ArmorBuildingPatch
         {
-        public static SimpleCurve armorMult = new SimpleCurve(new[] { new CurvePoint(0, 0), new CurvePoint(250, 1) });
+        public static readonly SimpleCurve ARMOR_MULT = new SimpleCurve(new[] { new CurvePoint(0, 0), new CurvePoint(250, 1) });
 
-        private delegate void applyArmorDelegate(ref float damAmount, float armorPenetration, float armorRating, Thing armorThing, ref DamageDef damageDef, Pawn pawn, out bool metalArmor);
-        static applyArmorDelegate applyArmor = AccessTools.MethodDelegate<applyArmorDelegate>(AccessTools.Method(typeof(ArmorUtility), "ApplyArmor"));
-        static void Postfix(ref DamageInfo dinfo, ref bool absorbed, Thing __instance)
+        private delegate void ApplyArmorDelegate(ref float damAmount, float armorPenetration, float armorRating, Thing armorThing, ref DamageDef damageDef, Pawn pawn, out bool metalArmor);
+        private static readonly ApplyArmorDelegate APPLY_ARMOR = AccessTools.MethodDelegate<ApplyArmorDelegate>(AccessTools.Method(typeof(ArmorUtility), "ApplyArmor"));
+
+        public static void Postfix(ref DamageInfo dinfo, ref bool absorbed, Thing __instance)
             {
             if (dinfo.Def.armorCategory == null) return;
 
@@ -48,9 +49,9 @@ namespace FlakeWombat
             float damageAmount = dinfo.Amount;
             DamageDef damageDef = dinfo.Def;
             EffecterDef effecterDef;
-            applyArmor(ref damageAmount, dinfo.ArmorPenetrationInt,
-                armorMult.Evaluate(__instance.def.GetStatValueAbstract(StatDefOf.MaxHitPoints)) * stuff.GetStatValueAbstract(damageDef.armorCategory.armorRatingStat.GetStatPart<StatPart_Stuff>().stuffPowerStat), null,
-                ref damageDef, /* Nobody cares. */ Find.WorldPawns.AllPawnsAlive[0], out bool _);
+            APPLY_ARMOR(ref damageAmount, dinfo.ArmorPenetrationInt,
+                                                         FlakeWombat_Thing_PreApplyDamage.ARMOR_MULT.Evaluate(__instance.def.GetStatValueAbstract(StatDefOf.MaxHitPoints)) * stuff.GetStatValueAbstract(damageDef.armorCategory.armorRatingStat.GetStatPart<StatPart_Stuff>().stuffPowerStat), null,
+                                                         ref damageDef, /* Nobody cares. */ Find.WorldPawns.AllPawnsAlive[0], out bool _);
             if (damageAmount < 0.001f)
                 {
                 absorbed = true;

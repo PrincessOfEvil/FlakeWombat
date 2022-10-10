@@ -10,10 +10,12 @@ using UnityEngine;
 using HugsLib;
 using Verse.AI;
 using static HarmonyLib.AccessTools;
+// ReSharper disable MemberCanBePrivate.Global
+// ReSharper disable ArrangeStaticMemberQualifier
 
 namespace FlakeWombat
     {
-    public class Ammo
+    public static class Ammo
         {
         public static int revolverAmmo = 6;
         public static int neolithicAmmo = 12;
@@ -74,18 +76,14 @@ namespace FlakeWombat
 
     public class CompAmmo : CompReloadable
         {
-        protected FieldRef<CompReloadable, int> remainingCharges;
+        protected static readonly FieldRef<CompReloadable, int> REMAINING_CHARGES = AccessTools.FieldRefAccess<int>(typeof(CompReloadable), "remainingCharges");
         public AmmoSubTypeDef currentAmmo;
         protected List<AmmoSubTypeDef> ammoTypesCached;
 
         public ThingStuffPairWithQuality? currentAmmoThing;
 
-        public ThingDef realAmmo => parent.def.ammoDef(currentAmmo);
-
-        public CompAmmo() : base() 
-            {
-            remainingCharges = AccessTools.FieldRefAccess<int>(typeof(CompReloadable), "remainingCharges");
-            }
+        public ThingDef RealAmmo => parent.def.ammoDef(currentAmmo);
+        
         public override void PostExposeData()
             {
             base.PostExposeData();
@@ -95,8 +93,8 @@ namespace FlakeWombat
         public override string CompInspectStringExtra()
             {
             return
-                "Ammo: " + this.realAmmo.label + "\n" +
-                "Ammo per second: " + parent.def.ammoPerSecond().ToString() + "\n" +
+                "Ammo: " + this.RealAmmo.label + "\n" +
+                "Ammo per second: " + parent.def.ammoPerSecond() + "\n" +
                 base.CompInspectStringExtra();
             }
 
@@ -110,55 +108,56 @@ namespace FlakeWombat
 
         public IEnumerable<Gizmo> GetAmmoGizmos()
             {
-            if (Wearer.IsColonistPlayerControlled && Wearer.drafter.Drafted)
+            if (!Wearer.IsColonistPlayerControlled || !Wearer.drafter.Drafted) yield break;
+            if (!Settings.ammoStatic)
                 {
-                if (!Settings.ammoStatic)
+                Command_Action reload = new()
                     {
-                    Command_Action reload = new Command_Action();
+                    defaultLabel = "FW_ReloadShort".Translate(),
+                    defaultDesc = "Reload".Translate(parent.Named("GEAR"), AmmoDef.Named("AMMO")),
+                    icon = ContentFinder<Texture2D>.Get("UI/Widgets/RotRight"),
+                    action = forceReload
+                    };
 
-                    reload.defaultLabel = "FW_ReloadShort".Translate();
-                    reload.defaultDesc = "Reload".Translate(parent.Named("GEAR"), AmmoDef.Named("AMMO"));
-                    reload.icon = ContentFinder<Texture2D>.Get("UI/Widgets/RotRight");
-                    reload.action = forceReload;
-                    yield return reload;
-                    }
-
-                Command_Action changeAmmo = new Command_Action();
-
-                changeAmmo.defaultLabel = "RW_ChangeAmmo".Translate();
-                changeAmmo.defaultDesc = "RW_ChangeAmmo".Translate();
-                changeAmmo.icon = ContentFinder<Texture2D>.Get("UI/Widgets/RotLeft");
-                changeAmmo.action = delegate
-                    {
-                        if (ammoTypesCached.EnumerableNullOrEmpty()) initAmmoCache();
-                        List<FloatMenuOption> list = new List<FloatMenuOption>();
-                        foreach (var ammo in ammoTypesCached)
-                            {
-                            list.Add(new FloatMenuOption(ammo.LabelCap, delegate
-                                {
-                                    unloadAmmo();
-                                    currentAmmo = ammo;
-                                    }));
-                            }
-                        FloatMenu floatMenu = new FloatMenu(list);
-                        floatMenu.vanishIfMouseDistant = true;
-                        Find.WindowStack.Add(floatMenu);
-                        };
-                yield return changeAmmo;
-                
-
-                if (Prefs.DevMode)
-                    {
-                    Command_Action devReload = new Command_Action();
-                    devReload.defaultLabel = "Debug: Reload to full";
-                    devReload.action = delegate
-                        {
-                        remainingCharges(this) = MaxCharges;
-                        };
-                    yield return devReload;
-                    }
+                yield return reload;
                 }
-            else yield break;
+
+            Command_Action changeAmmo = new()
+                {
+                defaultLabel = "FW_ChangeAmmo".Translate(),
+                defaultDesc = "FW_ChangeAmmo".Translate(),
+                icon = ContentFinder<Texture2D>.Get("UI/Widgets/RotLeft"),
+                action = delegate
+                    {
+                    if (ammoTypesCached.EnumerableNullOrEmpty()) initAmmoCache();
+                    List<FloatMenuOption> list = ammoTypesCached.Select(ammo => new FloatMenuOption(ammo.LabelCap, delegate
+                                                                     {
+                                                                     unloadAmmo();
+                                                                     currentAmmo = ammo;
+                                                                     }))
+                                                                .ToList();
+                    FloatMenu floatMenu = new(list)
+                        {
+                        vanishIfMouseDistant = true
+                        };
+                    Find.WindowStack.Add(floatMenu);
+                    }
+                };
+
+            yield return changeAmmo;
+            
+            if (Prefs.DevMode)
+                {
+                Command_Action devReload = new()
+                    {
+                    defaultLabel = "Debug: Reload to full",
+                    action = delegate
+                        {
+                        REMAINING_CHARGES(this) = MaxCharges;
+                        }
+                    };
+                yield return devReload;
+                }
             }
         public void forceReload()
             {
@@ -173,16 +172,16 @@ namespace FlakeWombat
         public void unloadAmmo()
             {
             if (Settings.ammoStatic) return; 
-            var a = ThingMaker.MakeThing(realAmmo, realAmmo.MadeFromStuff ? currentAmmoThing?.stuff ?? realAmmo.defaultStuff : null); ;
+            var a = ThingMaker.MakeThing(RealAmmo, RealAmmo.MadeFromStuff ? currentAmmoThing?.stuff ?? RealAmmo.defaultStuff : null);
             a.stackCount = RemainingCharges;
             Wearer.inventory.TryAddAndUnforbid(a);
             if (!Wearer.inventory.Contains(a) && a.stackCount > 0) GenSpawn.Spawn(a, Wearer.Position, Wearer.MapHeld);
-            remainingCharges(this) = 0;
+            CompAmmo.REMAINING_CHARGES(this) = 0;
             }
 
         protected void initAmmoCache() 
             {
-            ammoTypesCached = new();
+            ammoTypesCached = new List<AmmoSubTypeDef>();
             ammoTypesCached.AddRange(from a in DefDatabase<AmmoSubTypeDef>.AllDefsListForReading
                                      where
                                     (a.level == TechLevel.Undefined || a.level == parent.def.techLevel) &&
@@ -194,11 +193,10 @@ namespace FlakeWombat
         {
         public override IEnumerable<StatDrawEntry> SpecialDisplayStats(StatRequest req)
             {
-            foreach (var stat in base.SpecialDisplayStats(req))
-                yield return stat.withCategory(DefOf.StatCategory_Ammo);
+            return base.SpecialDisplayStats(req).Select(stat => stat.withCategory(DefOf.StatCategory_Ammo));
             }
         }
-    [HarmonyPatch(typeof(CompReloadable), "ReloadFrom")]
+    [HarmonyPatch(typeof(CompReloadable), nameof(CompReloadable.ReloadFrom))]
     public class FW_CompReloadable_ReloadFrom : AmmoPatch
         {
         public static bool Prefix(Thing ammo, CompReloadable __instance)
@@ -213,7 +211,7 @@ namespace FlakeWombat
             }
         }
 
-    [HarmonyPatch(typeof(DefGenerator), "GenerateImpliedDefs_PreResolve")]
+    [HarmonyPatch(typeof(DefGenerator), nameof(DefGenerator.GenerateImpliedDefs_PreResolve))]
     public class ThingDefGenerator_Ammo : AlwaysPatch
         {
         public static void Postfix()
@@ -226,23 +224,25 @@ namespace FlakeWombat
 
         public static InventoryStockGroupDef[] generateStockGroup()
             {
-            var def = new InventoryStockGroupDef();
-            def.defName = "FW_Ammo";
-            def.min = 0;
-            def.max = 8;
+            var def = new InventoryStockGroupDef
+                {
+                defName = "FW_Ammo",
+                min = 0,
+                max = 8,
+                thingDefs = new List<ThingDef>()
+                };
 
-            def.thingDefs = new();
             foreach (ThingDef ammoDef in from t in DefDatabase<ThingDef>.AllDefs
                                          where t.thingCategories?.Contains(DefOf.ThingCategory_Ammo) ?? false
                                          select t)
                 def.thingDefs.Add(ammoDef);
-            def.modExtensions = new List<DefModExtension>() { new DefExtension_Ammo() };
+            def.modExtensions = new List<DefModExtension> { new DefExtension_Ammo() };
             def.modContentPack = DefOf.StatCategory_Ammo.modContentPack;
 
             return new[] { def };
             }
         }
-    [HarmonyPatch(typeof(DefGenerator), "GenerateImpliedDefs_PostResolve")]
+    [HarmonyPatch(typeof(DefGenerator), nameof(DefGenerator.GenerateImpliedDefs_PostResolve))]
     public class ThingDefGenerator_AmmoLate : AmmoPatch
         {
         public static void Postfix()
@@ -251,7 +251,7 @@ namespace FlakeWombat
             }
         }
 
-    [HarmonyPatch(typeof(ReloadableUtility), "WearerOf")]
+    [HarmonyPatch(typeof(ReloadableUtility), nameof(ReloadableUtility.WearerOf))]
     public class FW_ReloadableUtility_WearerOf : AmmoPatch
         {
         public static Pawn Postfix(Pawn __result, CompReloadable comp) 
@@ -264,7 +264,7 @@ namespace FlakeWombat
             }
         }
 
-    [HarmonyPatch(typeof(ReloadableUtility), "FindSomeReloadableComponent")]
+    [HarmonyPatch(typeof(ReloadableUtility), nameof(ReloadableUtility.FindSomeReloadableComponent))]
     public class FW_ReloadableUtility_FindSomeReloadableComponent : AmmoPatch
         {
         public static CompReloadable Postfix(CompReloadable __result, Pawn pawn, bool allowForcedReload)
@@ -282,21 +282,21 @@ namespace FlakeWombat
             }
         }
 
-    [HarmonyPatch(typeof(ReloadableUtility), "FindEnoughAmmo")]
+    [HarmonyPatch(typeof(ReloadableUtility), nameof(ReloadableUtility.FindEnoughAmmo))]
     public class FW_ReloadableUtility_FindEnoughAmmo : AmmoPatch
         {
         public static bool Prefix(ref List<Thing> __result, Pawn pawn, IntVec3 rootCell, CompReloadable comp, bool forceReload)
             {
             if (comp is CompAmmo)
                 {
-                IntRange desiredQuantity = new IntRange(comp.MinAmmoNeeded(forceReload), comp.MaxAmmoNeeded(forceReload));
+                IntRange desiredQuantity = new(comp.MinAmmoNeeded(forceReload), comp.MaxAmmoNeeded(forceReload));
                 if (desiredQuantity.max == 0) return true;
                 pawn.inventory.DropCount(comp.AmmoDef, desiredQuantity.max);
                 }
             return true;
             }
         }
-    [HarmonyPatch(typeof(ReloadableUtility), "FindPotentiallyReloadableGear")]
+    [HarmonyPatch(typeof(ReloadableUtility), nameof(ReloadableUtility.FindPotentiallyReloadableGear))]
     public class FW_ReloadableUtility_FindPotentiallyReloadableGear : AmmoPatch
         {
         public static IEnumerable<Pair<CompReloadable, Thing>> Postfix(IEnumerable<Pair<CompReloadable, Thing>> __result, Pawn pawn, List<Thing> potentialAmmo)
@@ -307,13 +307,9 @@ namespace FlakeWombat
 
                 if (comp?.AmmoDef != null)
                     {
-                    for (int j = 0; j < potentialAmmo.Count; j++)
+                    foreach (Thing thing in potentialAmmo.Where(thing => thing.def == comp.AmmoDef))
                         {
-                        Thing thing = potentialAmmo[j];
-                        if (thing.def == comp.AmmoDef)
-                            {
-                            yield return new Pair<CompReloadable, Thing>(comp, thing);
-                            }
+                        yield return new Pair<CompReloadable, Thing>(comp, thing);
                         }
                     }
                 }
@@ -337,19 +333,17 @@ namespace FlakeWombat
         {
         public static Job Postfix(Job __result, Pawn pawn, JobGiver_TakeForInventoryStock __instance)
             {
-            var FindThingFor = AccessTools.MethodDelegate<Func<Pawn, ThingDef, Thing>>(AccessTools.Method(typeof(JobGiver_TakeForInventoryStock), "FindThingFor"), __instance);
+            var findThingFor = AccessTools.MethodDelegate<Func<Pawn, ThingDef, Thing>>(AccessTools.Method(typeof(JobGiver_TakeForInventoryStock), "FindThingFor"), __instance);
 
             if (__result == null)
                 {
                 Thing weapon = pawn.getWeapon();
-                if (weapon == null)
-                    return null;
-                var comp = weapon.TryGetComp<CompAmmo>();
+                var comp = weapon?.TryGetComp<CompAmmo>();
                 if (comp == null)
                     return null;
                 if (pawn.inventory.Count(comp.AmmoDef) > 0 && (pawn.CurJobDef?.driverClass == typeof(JobDriver_Hunt) || pawn.CurJobDef?.driverClass == typeof(JobDriver_Kill)))
                     return null;
-                Thing thing = FindThingFor(pawn, comp.AmmoDef);
+                Thing thing = findThingFor(pawn, comp.AmmoDef);
                 if (thing != null && comp.MaxCharges * pawn.inventoryStock.GetDesiredCountForGroup(DefOf.InventoryStockGroup_Ammo) > pawn.inventory.Count(thing.def))
                     {
                     Job job = JobMaker.MakeJob(JobDefOf.TakeCountToInventory, thing);
@@ -360,20 +354,18 @@ namespace FlakeWombat
             return __result;
             }
         }
-    [HarmonyPatch(typeof(Pawn_InventoryStockTracker), "AnyThingsRequiredNow")]
+    [HarmonyPatch(typeof(Pawn_InventoryStockTracker), nameof(Pawn_InventoryStockTracker.AnyThingsRequiredNow))]
     public class FW_Pawn_InventoryStockTracker_AnyThingsRequiredNow : AmmoPatch
         {
         public static bool Postfix(bool __result, Pawn_InventoryStockTracker __instance)
             {
-            foreach (KeyValuePair<InventoryStockGroupDef, InventoryStockEntry> stockEntry in __instance.stockEntries)
+            foreach ((InventoryStockGroupDef key, InventoryStockEntry value) in __instance.stockEntries)
                 {
-                if (!stockEntry.Key.HasModExtension<DefExtension_Ammo>() && __instance.pawn.inventory.Count(stockEntry.Value.thingDef) < stockEntry.Value.count)
+                if (!key.HasModExtension<DefExtension_Ammo>() && __instance.pawn.inventory.Count(value.thingDef) < value.count)
                     return true;
                 Thing gun = __instance.pawn.getWeapon();
-                if (gun == null)
-                    continue;
-                var comp = gun.TryGetComp<CompAmmo>();
-                if (comp != null && __instance.pawn.inventory.Count(comp.AmmoDef) < stockEntry.Value.count * comp.MaxCharges)
+                var comp = gun?.TryGetComp<CompAmmo>();
+                if (comp != null && __instance.pawn.inventory.Count(comp.AmmoDef) < value.count * comp.MaxCharges)
                     return true;
                 }
             return __result;
@@ -382,22 +374,24 @@ namespace FlakeWombat
 
     public class DefExtension_Ammo : DefModExtension
     {
+    // ReSharper disable once EmptyConstructor
+    // Weird vanilla glitch
     public DefExtension_Ammo() { }
     }
 
     public class PawnColumnWorker_CarryAmmo : PawnColumnWorker_Carry 
         {
-        public static InventoryStockGroupDef group => DefOf.InventoryStockGroup_Ammo;
+        public static InventoryStockGroupDef Group => DefOf.InventoryStockGroup_Ammo;
         public override void DoCell(Rect rect, Pawn pawn, PawnTable table)
             {
             if (pawn.inventoryStock != null)
                 {
                 Widgets.Dropdown(new Rect(rect.x, rect.y + 2f, rect.width - 4f, rect.height - 4f), pawn,
-                    (Pawn p) => p.inventoryStock.GetDesiredCountForGroup(group), (Pawn p) => this.GenerateCountButtons(p, group),
-                    pawn.inventoryStock.GetDesiredCountForGroup(group).ToString(), null, null, null, null, paintable: true);
+                    p => p.inventoryStock.GetDesiredCountForGroup(PawnColumnWorker_CarryAmmo.Group), p => PawnColumnWorker_CarryAmmo.GenerateCountButtons(p, PawnColumnWorker_CarryAmmo.Group),
+                    pawn.inventoryStock.GetDesiredCountForGroup(PawnColumnWorker_CarryAmmo.Group).ToString(), null, null, null, null, paintable: true);
                 }
             }
-        private IEnumerable<Widgets.DropdownMenuElement<int>> GenerateCountButtons(Pawn pawn, InventoryStockGroupDef group)
+        private static IEnumerable<Widgets.DropdownMenuElement<int>> GenerateCountButtons(Pawn pawn, InventoryStockGroupDef group)
             {
             for (int i = group.min; i <= group.max; i++)
                 {
@@ -406,8 +400,8 @@ namespace FlakeWombat
                     {
                     option = new FloatMenuOption(i.ToString(), delegate
                         {
-                            pawn.inventoryStock.SetCountForGroup(group, localI);
-                            }),
+                        pawn.inventoryStock.SetCountForGroup(group, localI);
+                        }),
                     payload = i
                     };
                 }
@@ -415,17 +409,11 @@ namespace FlakeWombat
 
         public override int Compare(Pawn a, Pawn b)
             {
-            return this.GetValueToCompare(a).CompareTo(this.GetValueToCompare(b));
+            return PawnColumnWorker_CarryAmmo.GetValueToCompare(a).CompareTo(PawnColumnWorker_CarryAmmo.GetValueToCompare(b));
             }
 
-        private int GetValueToCompare(Pawn pawn)
-            {
-            if (pawn.inventoryStock != null)
-                {
-                return pawn.inventoryStock.GetDesiredCountForGroup(group);
-                }
-            return int.MinValue;
-            }
+        private static int GetValueToCompare(Pawn pawn) => pawn.inventoryStock?.GetDesiredCountForGroup(PawnColumnWorker_CarryAmmo.Group) ?? int.MinValue;
+
         public override int GetMinWidth(PawnTable table)
             {
             if (!def.label.NullOrEmpty())
@@ -436,12 +424,7 @@ namespace FlakeWombat
                 return result;
                 }
 
-            if (def.HeaderIcon != null)
-                {
-                return Mathf.CeilToInt(def.HeaderIconSize.x);
-                }
-
-            return 1;
+            return def.HeaderIcon != null ? Mathf.CeilToInt(def.HeaderIconSize.x) : 1;
             }
 
         public override int GetOptimalWidth(PawnTable table)
@@ -459,12 +442,7 @@ namespace FlakeWombat
                 return result;
                 }
 
-            if (def.HeaderIcon != null)
-                {
-                return Mathf.CeilToInt(def.HeaderIconSize.y);
-                }
-
-            return 0;
+            return def.HeaderIcon != null ? Mathf.CeilToInt(def.HeaderIconSize.y) : 0;
             }
         }
     }

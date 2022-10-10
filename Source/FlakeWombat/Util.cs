@@ -2,6 +2,7 @@
 using RimWorld;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -10,6 +11,8 @@ using Verse;
 namespace FlakeWombat
     {
     [RimWorld.DefOf]
+    [SuppressMessage("ReSharper", "InconsistentNaming")]
+    [SuppressMessage("ReSharper", "UnassignedField.Global")]
     public static class DefOf 
         {
         [DefAlias("FW_Ammo")]
@@ -27,6 +30,7 @@ namespace FlakeWombat
 
     public static class Util
         {
+        // ReSharper disable once IdentifierTypo
         private static int iiiii = 0;
         public static void M(bool reset = false, string mod = "")
             {
@@ -43,7 +47,7 @@ namespace FlakeWombat
             Thing ret = pawn.equipment?.Primary;
             // partial simple sidearms support
             if (ret == null || !ret.def.isAmmoWeapon())
-                ret = pawn.inventory.innerContainer.Where(thing => thing.def.isAmmoWeapon()).FirstOrDefault();
+                ret = pawn.inventory.innerContainer.FirstOrDefault(thing => thing.def.isAmmoWeapon());
             return ret;
             }
         public static StatDrawEntry withCategory(this StatDrawEntry entry, StatCategoryDef category)
@@ -80,8 +84,7 @@ namespace FlakeWombat
                                         t.Verbs[0].verbClass != null &&
                                         t.Verbs[0].verbClass != typeof(Verb_ShootOneUse) &&
                                         t.Verbs[0].consumeFuelPerShot <= 0f &&
-                                        t.Verbs[0].defaultProjectile != null &&
-                                        t.Verbs[0].defaultProjectile.projectile.damageDef != null;
+                                        t.Verbs[0].defaultProjectile?.projectile.damageDef != null;
 
         public static float ammoPerSecond(this ThingDef thing)
             {
@@ -102,6 +105,13 @@ namespace FlakeWombat
         public static string baseLabel(this ThingDef thing)
             {
             return labels.TryGetValue(thing, thing.label);
+            }
+
+        public static string ToStringSafeDef(this object obj)
+            {
+            if (obj is Def def)
+                return def.label ?? def.defName;
+            else return obj.ToStringSafe();
             }
         }
     }
