@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8" ?>
+
+<Patch>
+	<Operation Class="PatchOperationSequence">
+		<operations>
+			<li Class="PatchOperationAdd">
+				<xpath>/Defs/TraderKindDef[defName="Caravan_Neolithic_BulkGoods" or defName="Caravan_Neolithic_WarMerchant" or defName="Caravan_Neolithic_Slaver"]/stockGenerators</xpath>
+				<value>
+					<li Class="StockGenerator_Tag">
+						<tradeTag>FW_Ammo_Neolithic</tradeTag>
+						<thingDefCountRange>2~5</thingDefCountRange>
+						<totalPriceRange>600~1000</totalPriceRange>
+					</li>
+				</value>
+			</li>
+			<li Class="PatchOperationAdd">
+				<xpath>/Defs/TraderKindDef[defName="Caravan_Neolithic_BulkGoods" or defName="Caravan_Neolithic_WarMerchant" or defName="Caravan_Neolithic_Slaver"]/stockGenerators</xpath>
+				<value>
+					<li Class="StockGenerator_BuyTradeTag"><tag>FW_Ammo_NeolithicOrIndustrial</tag></li>
+				</value>
+			</li>
+
+
+			<li Class="PatchOperationAdd">
+				<xpath>/Defs/TraderKindDef[defName="Caravan_Outlander_BulkGoods" or defName="Caravan_Outlander_CombatSupplier" or defName="Caravan_Outlander_PirateMerchant"]/stockGenerators</xpath>
+				<value>
+					<li Class="StockGenerator_Tag">
+						<tradeTag>FW_Ammo_Industrial</tradeTag>
+						<thingDefCountRange>2~5</thingDefCountRange>
+						<totalPriceRange>600~1000</totalPriceRange>
+					</li>
+				</value>
+			</li>
+			<li Class="PatchOperationAdd">
+				<xpath>/Defs/TraderKindDef[defName="Caravan_Outlander_BulkGoods" or defName="Caravan_Outlander_CombatSupplier" or defName="Caravan_Outlander_PirateMerchant"]/stockGenerators</xpath>
+				<value>
+					<li Class="StockGenerator_BuyTradeTag"><tag>FW_Ammo_IndustrialOrSpacer</tag></li>
+				</value>
+			</li>
+
+			<li Class="PatchOperationAdd">
+				<xpath>/Defs/TraderKindDef[defName="Caravan_Outlander_Exotic"]/stockGenerators</xpath>
+				<value>
+					<li Class="StockGenerator_Tag">
+						<tradeTag>FW_Ammo_Spacer</tradeTag>
+						<thingDefCountRange>1~2</thingDefCountRange>
+						<totalPriceRange>400~600</totalPriceRange>
+					</li>
+				</value>
+			</li>
+			<li Class="PatchOperationAdd">
+				<xpath>/Defs/TraderKindDef[defName="Caravan_Outlander_Exotic"]/stockGenerators</xpath>
+				<value>
+					<li Class="StockGenerator_BuyTradeTag"><tag>FW_Ammo_Spacer</tag></li>
+				</value>
+			</li>
+		</operations>
+	</Operation>
+</Patch>

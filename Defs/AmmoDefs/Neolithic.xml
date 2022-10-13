@@ -22,6 +22,9 @@
 			<productCount>25</productCount>
 			<bulkRecipeCount>4</bulkRecipeCount>
 		</recipeMaker>
+		<tradeTags>
+			<li>FW_Ammo_Neolithic_Basic</li>
+		</tradeTags>
 	</ThingDef>
 	<ThingDef ParentName="FW_AmmobaseNeolithic">
 		<defName>FW_RoundNeolithicRifle</defName>
@@ -45,6 +48,9 @@
 			<productCount>10</productCount>
 			<bulkRecipeCount>5</bulkRecipeCount>
 		</recipeMaker>
+		<tradeTags>
+			<li>FW_Ammo_Neolithic_Basic</li>
+		</tradeTags>
 	</ThingDef>
 	<ThingDef ParentName="FW_AmmobaseNeolithic">
 		<defName>FW_RoundNeolithicExplosive</defName>
@@ -73,5 +79,8 @@
 			<productCount>1</productCount>
 			<bulkRecipeCount>5</bulkRecipeCount>
 		</recipeMaker>
+		<tradeTags>
+			<li>FW_Ammo_Neolithic_Basic</li>
+		</tradeTags>
 	</ThingDef>
 </Defs>

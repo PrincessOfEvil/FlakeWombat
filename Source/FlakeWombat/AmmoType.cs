@@ -28,6 +28,7 @@ namespace FlakeWombat
             }
 
         private static readonly Dictionary<ThingDef, AmmoSubTypeDef> DICT = new();
+
         public static AmmoSubTypeDef tryGetAmmoFromAmmo(this ThingDef thing)
             {
             if (DICT.TryGetValue(thing, out AmmoSubTypeDef output)) return output;
@@ -38,32 +39,41 @@ namespace FlakeWombat
                 DICT.Add(thing, output);
                 return output;
                 }
-            
-            output = DefDatabase<AmmoSubTypeDef>.AllDefsListForReading.First(def => 
-                {
-                    string name = thing.defName;
-                    name = name.Replace("FW_Round", "");
 
-                    TechLevel level = TechLevel.Undefined;
-                    foreach (TechLevel tLev in Enum.GetValues(typeof(TechLevel)))
-                        if (name.Contains(tLev.ToString()))
-                            {
-                            level = tLev;
-                            name = name.Replace(tLev.ToString(), "");
-                            break;
-                            }
+            string name = thing.defName;
 
-                    AmmoType type = AmmoType.All;
-                    foreach (AmmoType aType in Enum.GetValues(typeof(AmmoType)))
-                        if (name.Contains(aType.ToString()))
-                            {
-                            type = aType;
-                            name = name.Replace(aType.ToString(), "");
-                            break;
-                            }
+            if (Prefs.DevMode) Log.Message(name);
 
-                    return def.level == level && def.type == type && (def.IsBasic || def.defName == name);
-                });
+            name = name.Replace("FW_Round", "");
+
+            TechLevel level = TechLevel.Undefined;
+            foreach (TechLevel tLev in Enum.GetValues(typeof(TechLevel)))
+                if (name.Contains(tLev.ToString()))
+                    {
+                    level = tLev;
+                    name = name.Replace(tLev.ToString(), "");
+                    break;
+                    }
+
+            AmmoType type = AmmoType.All;
+            foreach (AmmoType aType in Enum.GetValues(typeof(AmmoType)))
+                if (name.Contains(aType.ToString()))
+                    {
+                    type = aType;
+                    name = name.Replace(aType.ToString(), "");
+                    break;
+                    }
+
+            if (Prefs.DevMode)
+                { 
+                Log.Message(level.ToStringSafeDef());
+                Log.Message(type.ToStringSafeDef());
+                Log.Message(name);
+                }
+
+            output = DefDatabase<AmmoSubTypeDef>.AllDefsListForReading.First(def => (def.level == TechLevel.Undefined || def.level == level) &&
+                                                                                    (def.type == AmmoType.All || (def.type & type) == type) &&
+                                                                                    (name.NullOrEmpty() && def.IsBasic || def.defName == name));
             DICT.Add(thing, output);
             return output;
             }
@@ -71,7 +81,7 @@ namespace FlakeWombat
         public static ThingDef ammoDef(this ThingDef def, AmmoSubTypeDef ammo)
             {
             if (def.techLevel <= TechLevel.Medieval && def.isEnergy() && (ammo?.IsBasic ?? true)) return ThingDefOf.Chemfuel;
-            return DefDatabase<ThingDef>.GetNamedSilentFail("FW_Round" + def.ammoTechLevel() + def.ammoType() + (ammo?.IsBasic ?? true ? "" : ammo.defName));
+            return DefDatabase<ThingDef>.GetNamed("FW_Round" + def.ammoTechLevel() + def.ammoType() + (ammo?.IsBasic ?? true ? "" : ammo.defName));
             }
 
         public static ThingDef ammoBaseDef(this ThingDef def)

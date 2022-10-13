@@ -59,6 +59,13 @@
 		<thingCategories>
 			<li>FW_Ammo</li>
 		</thingCategories>
+
+		<tradeTags>
+			<li>FW_Ammo</li>
+			<li>FW_Ammo_Industrial</li>
+			<li>FW_Ammo_NeolithicOrIndustrial</li>
+			<li>FW_Ammo_IndustrialOrSpacer</li>
+		</tradeTags>
 		<modExtensions>
 			<li Class="FlakeWombat.DefExtension_Unstuffed" />
 		</modExtensions>
@@ -76,6 +83,11 @@
 			</recipeUsers>
 			<skillRequirements Inherit="False" />
 		</recipeMaker>
+		<tradeTags Inherit="False">
+			<li>FW_Ammo</li>
+			<li>FW_Ammo_Neolithic</li>
+			<li>FW_Ammo_NeolithicOrIndustrial</li>
+		</tradeTags>
 	</ThingDef>
 	<ThingDef ParentName="FW_Ammobase" Name="FW_AmmobaseSpacer" Abstract="True">
 		<statBases>
@@ -90,6 +102,11 @@
 				<Crafting>6</Crafting>
 			</skillRequirements>
 		</recipeMaker>
+		<tradeTags Inherit="False">
+			<li>FW_Ammo</li>
+			<li>FW_Ammo_Spacer</li>
+			<li>FW_Ammo_IndustrialOrSpacer</li>
+		</tradeTags>
 	</ThingDef>
 
 </Defs>

@@ -19,6 +19,9 @@
 			<productCount>100</productCount>
 			<bulkRecipeCount>5</bulkRecipeCount>
 		</recipeMaker>
+		<tradeTags>
+			<li>FW_Ammo_Industrial_Basic</li>
+		</tradeTags>
 	</ThingDef>
 	<ThingDef ParentName="FW_Ammobase">
 		<defName>FW_RoundIndustrialRifle</defName>
@@ -39,6 +42,9 @@
 			<productCount>50</productCount>
 			<bulkRecipeCount>5</bulkRecipeCount>
 		</recipeMaker>
+		<tradeTags>
+			<li>FW_Ammo_Industrial_Basic</li>
+		</tradeTags>
 	</ThingDef>
 	<ThingDef ParentName="FW_Ammobase">
 		<defName>FW_RoundIndustrialShotgun</defName>
@@ -67,6 +73,9 @@
 			<productCount>50</productCount>
 			<bulkRecipeCount>3</bulkRecipeCount>
 		</recipeMaker>
+		<tradeTags>
+			<li>FW_Ammo_Industrial_Basic</li>
+		</tradeTags>
 	</ThingDef>
 	<ThingDef ParentName="FW_Ammobase">
 		<defName>FW_RoundIndustrialExplosive</defName>
@@ -90,6 +99,9 @@
 			<productCount>10</productCount>
 			<bulkRecipeCount>5</bulkRecipeCount>
 		</recipeMaker>
+		<tradeTags>
+			<li>FW_Ammo_Industrial_Basic</li>
+		</tradeTags>
 	</ThingDef>
 	<ThingDef ParentName="FW_Ammobase">
 		<defName>FW_RoundIndustrialEnergy</defName>
@@ -110,5 +122,8 @@
 			<productCount>50</productCount>
 			<bulkRecipeCount>5</bulkRecipeCount>
 		</recipeMaker>
+		<tradeTags>
+			<li>FW_Ammo_Industrial_Basic</li>
+		</tradeTags>
 	</ThingDef>
 </Defs>

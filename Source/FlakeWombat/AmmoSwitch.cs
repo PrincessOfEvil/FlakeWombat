@@ -35,7 +35,8 @@ namespace FlakeWombat
         public virtual IEnumerable<StatDrawEntry> SpecialDisplayStats()
             {
             //Chosen by a fair dice roll, guaranteed to be random.
-            yield return statFor(level,                     "level",                3800);
+            var lvl = level != TechLevel.Undefined ? level.ToStringSafeDef() : "All";
+            yield return statFor(lvl,                       "level",                3800);
             yield return statFor(type,                      "type",                 3800 - 1);
 
             if (!Mathf.Approximately(damageMult, 1f))
@@ -52,7 +53,7 @@ namespace FlakeWombat
 
         protected static StatDrawEntry statFor(object obj, string name, int id) 
             {
-            return new StatDrawEntry(StatCategoryDefOf.Weapon_Ranged, "FW." + name, obj.ToStringSafeDef(), "FW." + name + ".desc", id);
+            return new StatDrawEntry(StatCategoryDefOf.Weapon_Ranged, ("FW." + name).Translate(), obj.ToStringSafeDef().CapitalizeFirst(), ("FW." + name + ".desc").Translate(), id);
             }
         }
 

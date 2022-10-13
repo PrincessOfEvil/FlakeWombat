@@ -3,4 +3,28 @@
 	<FW_ReloadShort>reload</FW_ReloadShort>
 	<FW_AmmoPerMinute>ammo per minute</FW_AmmoPerMinute>
 	<FW_AmmoPerMinute.desc>Ammunition used per minute of shooting. This is affected by the weapon's rate of fire, burst capabilities, or explosive or energy damage.</FW_AmmoPerMinute.desc>
+
+
+	<FW.level>Tech level</FW.level>
+	<FW.level.desc>Tech level of ammunition.</FW.level.desc>
+
+	<FW.type>Weapon type</FW.type>
+	<FW.type.desc>Weapon type of ammunition.</FW.type.desc>
+
+	<FW.damageMult>Damage</FW.damageMult>
+	<FW.damageMult.desc>Damage multiplier of ammunition.</FW.damageMult.desc>
+
+	<FW.armorPenMult>Penetration</FW.armorPenMult>
+	<FW.armorPenMult.desc>Armor penetration multiplier of ammunition.</FW.armorPenMult.desc>
+
+	<FW.armorPenMult>Projectile</FW.armorPenMult>
+	<FW.armorPenMult.desc>Projectile of ammunition.</FW.armorPenMult.desc>
+
+	<FW.preventFriendlyFire>Prevent friendly fire?</FW.preventFriendlyFire>
+	<FW.preventFriendlyFire.desc>Whether the bullet tries to prevent friendly fire.</FW.preventFriendlyFire.desc>
+
+	<FW.hitFlags>Hit flags</FW.hitFlags>
+	<FW.hitFlags.desc>Hit flags of ammunition.</FW.hitFlags.desc>
+
+	
 </LanguageData>

@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8" ?>
+
+<Patch>
+	<Operation Class="PatchOperationSequence">
+
+
+		<operations>
+			<li Class="PatchOperationAdd">
+				<xpath>/Defs/TraderKindDef[defName="Visitor_Neolithic_Standard"]/stockGenerators</xpath>
+				<value>
+					<li Class="StockGenerator_Tag">
+						<tradeTag>FW_Ammo_Neolithic_Basic</tradeTag>
+						<thingDefCountRange>1~2</thingDefCountRange>
+						<totalPriceRange>100~300</totalPriceRange>
+					</li>
+				</value>
+			</li>
+			<li Class="PatchOperationAdd">
+				<xpath>/Defs/TraderKindDef[defName="Visitor_Neolithic_Standard"]/stockGenerators</xpath>
+				<value>
+					<li Class="StockGenerator_BuyTradeTag"><tag>FW_Ammo_Neolithic</tag></li>
+				</value>
+			</li>
+
+
+			<li Class="PatchOperationAdd">
+				<xpath>/Defs/TraderKindDef[defName="Visitor_Outlander_Standard"]/stockGenerators</xpath>
+				<value>
+					<li Class="StockGenerator_Tag">
+						<tradeTag>FW_Ammo_Industrial_Basic</tradeTag>
+						<thingDefCountRange>1~2</thingDefCountRange>
+						<totalPriceRange>100~300</totalPriceRange>
+					</li>
+				</value>
+			</li>
+			<li Class="PatchOperationAdd">
+				<xpath>/Defs/TraderKindDef[defName="Visitor_Outlander_Standard"]/stockGenerators</xpath>
+				<value>
+					<li Class="StockGenerator_BuyTradeTag"><tag>FW_Ammo_Industrial</tag></li>
+				</value>
+			</li>
+		</operations>
+	</Operation>
+</Patch>

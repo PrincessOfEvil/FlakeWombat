@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8" ?>
+
+<Patch>
+	<Operation Class="PatchOperationSequence">
+
+
+		<operations>
+			<li Class="PatchOperationAdd">
+				<xpath>/Defs/TraderKindDef[defName="Base_Neolithic_Standard"]/stockGenerators</xpath>
+				<value>
+					<li Class="StockGenerator_Tag">
+						<tradeTag>FW_Ammo_Neolithic_Basic</tradeTag>
+						<thingDefCountRange>3~3</thingDefCountRange>
+						<totalPriceRange>2000~3000</totalPriceRange>
+					</li>
+				</value>
+			</li>
+			<li Class="PatchOperationAdd">
+				<xpath>/Defs/TraderKindDef[defName="Base_Neolithic_Standard"]/stockGenerators</xpath>
+				<value>
+					<li Class="StockGenerator_Tag">
+						<tradeTag>FW_Ammo_Neolithic</tradeTag>
+						<thingDefCountRange>4~8</thingDefCountRange>
+						<totalPriceRange>2000~3000</totalPriceRange>
+					</li>
+				</value>
+			</li>
+			<li Class="PatchOperationAdd">
+				<xpath>/Defs/TraderKindDef[defName="Base_Neolithic_Standard"]/stockGenerators</xpath>
+				<value>
+					<li Class="StockGenerator_BuyTradeTag"><tag>FW_Ammo_NeolithicOrIndustrial</tag></li>
+				</value>
+			</li>
+
+
+			<li Class="PatchOperationAdd">
+				<xpath>/Defs/TraderKindDef[defName="Base_Outlander_Standard"]/stockGenerators</xpath>
+				<value>
+					<li Class="StockGenerator_Tag">
+						<tradeTag>FW_Ammo_Industrial_Basic</tradeTag>
+						<thingDefCountRange>5~5</thingDefCountRange>
+						<totalPriceRange>2000~3000</totalPriceRange>
+					</li>
+				</value>
+			</li>
+			<li Class="PatchOperationAdd">
+				<xpath>/Defs/TraderKindDef[defName="Base_Outlander_Standard"]/stockGenerators</xpath>
+				<value>
+					<li Class="StockGenerator_Tag">
+						<tradeTag>FW_Ammo_Spacer_Basic</tradeTag>
+						<thingDefCountRange>1~3</thingDefCountRange>
+						<totalPriceRange>1000~2000</totalPriceRange>
+					</li>
+				</value>
+			</li>
+			<li Class="PatchOperationAdd">
+				<xpath>/Defs/TraderKindDef[defName="Base_Outlander_Standard"]/stockGenerators</xpath>
+				<value>
+					<li Class="StockGenerator_Tag">
+						<tradeTag>FW_Ammo_Industrial</tradeTag>
+						<thingDefCountRange>4~8</thingDefCountRange>
+						<totalPriceRange>2000~3000</totalPriceRange>
+					</li>
+				</value>
+			</li>
+
+			<li Class="PatchOperationAdd">
+				<xpath>/Defs/TraderKindDef[defName="Base_Outlander_Standard"]/stockGenerators</xpath>
+				<value>
+					<li Class="StockGenerator_BuyTradeTag"><tag>FW_Ammo_IndustrialOrSpacer</tag></li>
+				</value>
+			</li>
+		</operations>
+	</Operation>
+</Patch>
