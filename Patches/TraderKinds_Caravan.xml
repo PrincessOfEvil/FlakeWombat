@@ -6,7 +6,7 @@
 			<li Class="PatchOperationAdd">
 				<xpath>/Defs/TraderKindDef[defName="Caravan_Neolithic_BulkGoods" or defName="Caravan_Neolithic_WarMerchant" or defName="Caravan_Neolithic_Slaver"]/stockGenerators</xpath>
 				<value>
-					<li Class="StockGenerator_Tag">
+					<li Class="FlakeWombat.StockGenerator_Tag_IgnoreStuff">
 						<tradeTag>FW_Ammo_Neolithic</tradeTag>
 						<thingDefCountRange>2~5</thingDefCountRange>
 						<totalPriceRange>600~1000</totalPriceRange>
@@ -24,7 +24,7 @@
 			<li Class="PatchOperationAdd">
 				<xpath>/Defs/TraderKindDef[defName="Caravan_Outlander_BulkGoods" or defName="Caravan_Outlander_CombatSupplier" or defName="Caravan_Outlander_PirateMerchant"]/stockGenerators</xpath>
 				<value>
-					<li Class="StockGenerator_Tag">
+					<li Class="FlakeWombat.StockGenerator_Tag_IgnoreStuff">
 						<tradeTag>FW_Ammo_Industrial</tradeTag>
 						<thingDefCountRange>2~5</thingDefCountRange>
 						<totalPriceRange>600~1000</totalPriceRange>
@@ -41,7 +41,7 @@
 			<li Class="PatchOperationAdd">
 				<xpath>/Defs/TraderKindDef[defName="Caravan_Outlander_Exotic"]/stockGenerators</xpath>
 				<value>
-					<li Class="StockGenerator_Tag">
+					<li Class="FlakeWombat.StockGenerator_Tag_IgnoreStuff">
 						<tradeTag>FW_Ammo_Spacer</tradeTag>
 						<thingDefCountRange>1~2</thingDefCountRange>
 						<totalPriceRange>400~600</totalPriceRange>

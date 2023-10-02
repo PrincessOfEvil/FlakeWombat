@@ -102,14 +102,15 @@ namespace FlakeWombat
             {
             foreach (var stat in base.SpecialDisplayStats())
                 yield return stat.withCategory(DefOf.StatCategory_Ammo);
-
+                
+            yield return new StatDrawEntry(DefOf.StatCategory_Ammo, "FW_CurrentAmmo".Translate(), RealAmmo.label.CapitalizeFirst(), "FW_CurrentAmmo.desc".Translate(), 2760);
             yield return new StatDrawEntry(DefOf.StatCategory_Ammo, "FW_AmmoPerMinute".Translate(), (parent.def.ammoPerSecond() * parent.def.ammoPerShot() * 60).ToString("F2"), "FW_AmmoPerMinute.desc".Translate(), 2);
             }
 
         public IEnumerable<Gizmo> GetAmmoGizmos()
             {
-            if (!Wearer.IsColonistPlayerControlled || !Wearer.drafter.Drafted) yield break;
-            if (!Settings.ammoStatic)
+            if (!Wearer.IsColonistPlayerControlled) yield break;
+            if (!Settings.ammoStatic && Wearer.drafter.Drafted)
                 {
                 Command_Action reload = new()
                     {
@@ -120,6 +121,17 @@ namespace FlakeWombat
                     };
 
                 yield return reload;
+                
+                
+                Command_Action dropAmmo = new()
+                    {
+                    defaultLabel = "FW_DropAmmoShort".Translate(),
+                    defaultDesc = "FW_DropAmmo".Translate(),
+                    icon = ContentFinder<Texture2D>.Get("UI/Buttons/Drop"),
+                    action = dropExtraAmmo
+                    };
+
+                yield return dropAmmo;
                 }
 
             Command_Action changeAmmo = new()
@@ -134,6 +146,7 @@ namespace FlakeWombat
                                                                      {
                                                                      unloadAmmo();
                                                                      currentAmmo = ammo;
+                                                                     forceReload();
                                                                      }))
                                                                 .ToList();
                     FloatMenu floatMenu = new(list)
@@ -169,6 +182,13 @@ namespace FlakeWombat
             Wearer.jobs.StartJob(JobGiver_Reload.MakeReloadJob(this, list), JobCondition.InterruptForced);
             }
 
+        
+        public void dropExtraAmmo()
+            {
+            Wearer.inventory.innerContainer.Where(t => t.def.isAmmo() && t.def != RealAmmo).Do(t => Wearer.inventory.DropCount(t.def, t.stackCount));
+            }
+
+        
         public void unloadAmmo()
             {
             if (Settings.ammoStatic) return; 

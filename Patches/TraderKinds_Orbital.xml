@@ -6,7 +6,7 @@
 			<li Class="PatchOperationAdd">
 				<xpath>/Defs/TraderKindDef[defName="Orbital_BulkGoods"]/stockGenerators</xpath>
 				<value>
-					<li Class="StockGenerator_Tag">
+					<li Class="FlakeWombat.StockGenerator_Tag_IgnoreStuff">
 						<tradeTag>FW_Ammo_Industrial_Basic</tradeTag>
 						<thingDefCountRange>5~5</thingDefCountRange>
 						<totalPriceRange>2000~3000</totalPriceRange>
@@ -16,7 +16,7 @@
 			<li Class="PatchOperationAdd">
 				<xpath>/Defs/TraderKindDef[defName="Orbital_BulkGoods"]/stockGenerators</xpath>
 				<value>
-					<li Class="StockGenerator_Tag">
+					<li Class="FlakeWombat.StockGenerator_Tag_IgnoreStuff">
 						<tradeTag>FW_Ammo_Spacer_Basic</tradeTag>
 						<thingDefCountRange>5~5</thingDefCountRange>
 						<totalPriceRange>2000~3000</totalPriceRange>
@@ -27,7 +27,7 @@
 			<li Class="PatchOperationAdd">
 				<xpath>/Defs/TraderKindDef[defName="Orbital_CombatSupplier" or defName="Orbital_PirateMerchant"]/stockGenerators</xpath>
 				<value>
-					<li Class="StockGenerator_Tag">
+					<li Class="FlakeWombat.StockGenerator_Tag_IgnoreStuff">
 						<tradeTag>FW_Ammo_Industrial</tradeTag>
 						<thingDefCountRange>4~8</thingDefCountRange>
 						<totalPriceRange>2000~3000</totalPriceRange>
@@ -37,7 +37,7 @@
 			<li Class="PatchOperationAdd">
 				<xpath>/Defs/TraderKindDef[defName="Orbital_CombatSupplier" or defName="Orbital_PirateMerchant"]/stockGenerators</xpath>
 				<value>
-					<li Class="StockGenerator_Tag">
+					<li Class="FlakeWombat.StockGenerator_Tag_IgnoreStuff">
 						<tradeTag>FW_Ammo_Spacer</tradeTag>
 						<thingDefCountRange>4~8</thingDefCountRange>
 						<totalPriceRange>2000~3000</totalPriceRange>

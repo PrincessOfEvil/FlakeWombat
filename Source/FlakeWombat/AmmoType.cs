@@ -29,6 +29,11 @@ namespace FlakeWombat
 
         private static readonly Dictionary<ThingDef, AmmoSubTypeDef> DICT = new();
 
+        public static bool isAmmo(this ThingDef thing)
+            {
+            return thing.tryGetAmmoFromAmmo() != null;
+            }
+
         public static AmmoSubTypeDef tryGetAmmoFromAmmo(this ThingDef thing)
             {
             if (DICT.TryGetValue(thing, out AmmoSubTypeDef output)) return output;

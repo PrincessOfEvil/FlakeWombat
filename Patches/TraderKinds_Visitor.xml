@@ -8,7 +8,7 @@
 			<li Class="PatchOperationAdd">
 				<xpath>/Defs/TraderKindDef[defName="Visitor_Neolithic_Standard"]/stockGenerators</xpath>
 				<value>
-					<li Class="StockGenerator_Tag">
+					<li Class="FlakeWombat.StockGenerator_Tag_IgnoreStuff">
 						<tradeTag>FW_Ammo_Neolithic_Basic</tradeTag>
 						<thingDefCountRange>1~2</thingDefCountRange>
 						<totalPriceRange>100~300</totalPriceRange>
@@ -26,7 +26,7 @@
 			<li Class="PatchOperationAdd">
 				<xpath>/Defs/TraderKindDef[defName="Visitor_Outlander_Standard"]/stockGenerators</xpath>
 				<value>
-					<li Class="StockGenerator_Tag">
+					<li Class="FlakeWombat.StockGenerator_Tag_IgnoreStuff">
 						<tradeTag>FW_Ammo_Industrial_Basic</tradeTag>
 						<thingDefCountRange>1~2</thingDefCountRange>
 						<totalPriceRange>100~300</totalPriceRange>

@@ -19,6 +19,28 @@ namespace FlakeWombat
         public DefExtension_Unstuffed() { }
         }
 
+    public class StockGenerator_Tag_IgnoreStuff : StockGenerator_Tag
+        {
+        public static readonly FieldRef<StockGenerator_Tag, IntRange> THING_DEF_COUNT_RANGE = AccessTools.FieldRefAccess<IntRange>(typeof(StockGenerator_Tag), "thingDefCountRange");
+        public static readonly FieldRef<StockGenerator_Tag, List<ThingDef>> EXCLUDED_THING_DEFS = AccessTools.FieldRefAccess<List<ThingDef>>(typeof(StockGenerator_Tag), "excludedThingDefs");
+        public override IEnumerable<Thing> GenerateThings(int forTile, Faction faction = null)
+            {
+            List<ThingDef> generatedDefs = new List<ThingDef>();
+            var excludedThingDefs = EXCLUDED_THING_DEFS(this);
+            int numThingDefsToUse = THING_DEF_COUNT_RANGE(this).RandomInRange;
+            for (int i = 0; i < numThingDefsToUse; i++)
+                {
+                if (!DefDatabase<ThingDef>.AllDefs.Where((ThingDef d) => this.HandlesThingDef(d) && d.tradeability.TraderCanSell() && d.PlayerAcquirable && (excludedThingDefs == null || !excludedThingDefs.Contains(d)) && !generatedDefs.Contains(d)).TryRandomElementByWeight(SelectionWeight, out var chosenThingDef))
+                    {
+                    break;
+                    }
+                yield return StockGeneratorUtility.TryMakeForStockSingle(chosenThingDef, base.RandomCountOf(chosenThingDef), faction);
+                generatedDefs.Add(chosenThingDef);
+                chosenThingDef = null;
+                }
+            }
+        }
+
     [HarmonyPatch(typeof(Thing), nameof(Thing.DrawColor), MethodType.Getter )]
     public class FW_Thing_DrawColor : AmmoPatch
         {
@@ -44,7 +66,7 @@ namespace FlakeWombat
         {
         public static bool Prefix(CompReloadable __instance)
             {
-            return !Settings.ammoStatic || __instance is not CompAmmo;
+            return __instance is not CompAmmo || !Settings.ammoStatic || !__instance.Wearer.def.race.IsMechanoid;
             }
         public static void Postfix(CompReloadable __instance)
             {
@@ -74,6 +96,7 @@ namespace FlakeWombat
         {
         public static void Postfix(Pawn p)
             {
+            if (p.def.race.IsMechanoid) return;
             var weapon = p.getWeapon();
             var comp = weapon?.TryGetComp<CompAmmo>();
             if (comp == null) return;
